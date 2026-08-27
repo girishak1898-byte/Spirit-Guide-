@@ -4,6 +4,9 @@ All values below become CSS custom properties in `styles/tokens.css`. No compone
 a raw hex, px spacing, or duration that duplicates a token — if a value is needed twice, it
 belongs here.
 
+Confirmed against the official `03_VISUAL_BIBLE.md`: palette, typography scale, and the corrected
+card radius (20–28px, §4 below) all match exactly. No rework needed from that cross-check.
+
 ## 1. Color Tokens
 
 ```css

@@ -2,9 +2,14 @@
 
 Companion to `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` and `02_V5_MASTER_BUILD_DIRECTIVE.md` (product
 source of truth — supplied by the official Claude handoff pack, superseding the earlier
-chat-reconstructed `SPIRIT-GUIDE-V4.md`), `DESIGN-SYSTEM.md`, `MOTION-SPEC.md`, `ASSET-PLAN.md`,
+chat-reconstructed `SPIRIT-GUIDE-V4.md`), `DESIGN-SYSTEM.md`, `MOTION-SPEC.md`, `ASSET-PLAN-IMPLEMENTATION.md`,
 `IMPLEMENTATION-PLAN.md`. This document covers technology choices, directory structure, component
 boundaries, state domains, and the storage abstraction.
+
+The directory structure (§3), state domains (§5), and storage/media/audio/performance rules (§6–7)
+below are confirmed against the official `10_ARCHITECTURE_CONSTRAINTS.md` — they match almost
+exactly, including `lib/audio/`, `lib/content/`, and top-level `types/`, all already planned here.
+No rework from that cross-check.
 
 ## 1. Current Repository State (updated — this is a re-run of Phase 0, not a fresh start)
 
@@ -16,7 +21,7 @@ keyboard/reduced-motion all passing) on that basis. This official pack (`CLAUDE.
 `ASSET_STATUS.json`) has now been copied into the repo at the paths it expects. Cross-checking it
 against the existing Phase 1 code found one real gap (radius tokens — see §10) and no other
 rework. `public/assets/hero/` exists but is empty — the hero asset `ASSET_STATUS.json` claims is
-supplied was not actually included in this upload (see `ASSET-PLAN.md` §1).
+supplied was not actually included in this upload (see `ASSET-PLAN-IMPLEMENTATION.md` §1).
 
 ## 2. Technology Stack
 
@@ -157,7 +162,7 @@ Phase 1 creates: `styles/` tokens, `app/layout.tsx` + `app/page.tsx` shell, `com
 (Button, basic Chip/Field primitives used by later phases), `components/navigation/` (desktop +
 mobile), `components/motion/` primitives (empty-scene-safe, no hero content yet), and the
 `lib/motion` matchMedia/easing helpers. It does **not** touch `components/gateway/` or any hero
-imagery — that's Phase 2, gated on real asset delivery per `ASSET-PLAN.md`.
+imagery — that's Phase 2, gated on real asset delivery per `ASSET-PLAN-IMPLEMENTATION.md`.
 
 ## 9. Deferred Product Surfaces (from the official V4 brief, §44–53)
 

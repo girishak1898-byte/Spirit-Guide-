@@ -54,29 +54,38 @@ text/UI:    normal document speed (no parallax)
 
 Users should feel depth without consciously registering "this page uses parallax."
 
-## 6. Temple Gateway — Scroll Storyboard (Phase 2 spec, documented now for planning)
+## 6. Temple Gateway — Scroll Storyboard
+
+**Now sourced directly from the official `04_HERO_MOTION_STORYBOARD.md`** — this project's own
+earlier derivation (from the pre-handoff build conversation) independently matched the official
+percentage breakpoints and intent almost exactly, so the table below adopts the official stage
+names verbatim and folds in this project's implementation-level detail (exact scale/opacity/blur
+values) underneath each official stage.
 
 Outer section: 240–270vh desktop (240vh baseline, tune during Phase 2 QA). Internal sticky scene:
 `position: sticky; top: 0; height: 100svh`. One master GSAP timeline driven by a single
 ScrollTrigger with `scrub: 1`, split into labeled segments so each state is independently tunable.
+Mobile gets a shorter, lower-cost version per §8 below.
 
-| Progress | State | Behavior |
+| Progress | Official Stage (`04`) | Behavior |
 |---|---|---|
-| 0–0.08 | Darkness → resolve | Background exists at `--bg-primary-1`; hero image crossfades in per this project's own second-by-second intro timeline (not in the official V4 brief, which covers hero composition/effects/loading at a higher level in §6–8 — a blurred low-res placeholder transitioning to full-res, per V4 §8). This only applies to true first-load, not to scroll re-entry. |
-| 0.08–0.15 | Arrival | Full hero visible: eyebrow, headline, supporting copy, both CTAs, spiritual note, nav all present. Artwork scale 1.00. Small ambient movement only. |
-| 0.15–0.25 | Invitation | Secondary paragraph opacity 1→0.4, secondary CTA and spiritual note begin fading. Artwork scale → ~1.025. |
-| 0.25–0.38 | Focus | Secondary CTA and eyebrow fully gone. Hero copy remains. Foreground (if layered) shifts fractionally faster than background. Candlelight +3%. |
-| 0.38–0.50 | Crossing | Headline exits line-by-line: `opacity 1→0`, `translateY 0→-24px`, `blur 0→5px` per line, staggered. Artwork scale 1.025→1.08. Primary CTA begins fading. |
-| 0.50–0.65 | Threshold | Normal web UI (nav) recedes to near-invisible. Foreground scale 1→1.07 / translateY 0→2%; background scale 1→1.025. Haze layer (if present) drifts upward. Buddha/central subject stays visually locked — the environment moves, not the focal subject. |
-| 0.65–0.78 | Immersion | No marketing copy on screen at all — deliberate visual silence (~30–50vh equivalent). Pure sanctuary. |
-| 0.78–0.88 | Temple Mode reveal begins | Edges darken slightly; central light increases slightly. Eyebrow `TEMPLE MODE` fades in. |
-| 0.88–0.95 | Statement | `Nothing to achieve.` (~54–64px desktop / ~38–44px mobile) then `Stay for one breath or as long as you need.` Reveal slowly, no dramatic movement. |
-| 0.95–1.00 | Handoff | Ritual dock resolves one element at a time (Candle → Bell → Incense → Lotus → Reflection). ScrollTrigger ends; normal document scroll resumes into the next chapter. |
+| 0–0.08 | Emergence | Midnight background first (`--bg-primary-1`); hero media resolves softly. No fake loading-progress screen. This project's own intro-timeline detail (blurred low-res → full-res crossfade) applies only to true first page load, not scroll re-entry. |
+| 0.08–0.15 | Arrival | Full hero visible: nav, eyebrow `WELCOME HOME`, headline, supporting copy, both CTAs, spiritual note. Artwork scale 1.00. Ambient candle/haze motion almost imperceptible. |
+| 0.15–0.25 | Invitation | Supporting copy and spiritual note begin losing emphasis (opacity 1→0.4); secondary CTA begins fading. Artwork scale → ~1.025. Edge vignette increases slightly. |
+| 0.25–0.38 | Focus | Eyebrow and secondary CTA fully gone. Primary statement remains. Tiny foreground/background separation begins (foreground shifts fractionally faster). Central illumination +2–4%. |
+| 0.38–0.50 | Crossing | Headline exits line-by-line: `opacity 1→0`, `translateY 0→-24px`, `blur 0→5px` per line, staggered. Primary CTA disappears. Artwork scale 1.025→1.08. |
+| 0.50–0.65 | Leaving the Website | Conventional hero UI (nav) nearly gone. Foreground moves more than background (scale 1→1.07 / translateY 0→2% vs. background scale 1→1.025). Haze drifts upward. Buddha/central subject stays visually locked — it must not appear to rush at the viewer; the environment moves, the focal subject doesn't. Central light strengthens marginally. |
+| 0.65–0.78 | Pure Sanctuary | No marketing copy at all — a meaningful, deliberate period of visual silence (~30–50vh equivalent). Movement becomes slower, not more dramatic. |
+| 0.78–0.88 | Temple Identity | Navigation becomes extremely restrained. Small eyebrow `TEMPLE MODE` fades in. Edges darken slightly. |
+| 0.88–0.95 | Stillness Statement | `Nothing to achieve.` (~54–64px desktop / ~38–44px mobile, elegant — smaller than an advertising billboard) then `Stay for one breath or as long as you need.` Reveal slowly, no dramatic movement. |
+| 0.95–1.00 | Handoff | Ritual dock resolves one element at a time (Candle → Bell → Incense → Lotus → Reflection). End-state must visually match Temple Mode's own opening state — no black gap or unrelated scene load. ScrollTrigger ends; normal document scroll resumes. |
 
 Design intent carried through every segment: the Buddha/central subject must never appear to
 "zoom toward" the viewer — scale and parallax differentials create the illusion that the *viewer*
-moves through the environment. See `ASSET-PLAN.md` §2 for how this is achieved with a single
-flattened image vs. layered assets.
+moves through the environment. See `ASSET-PLAN-IMPLEMENTATION.md` §2 for how this is achieved with
+a single flattened image vs. layered assets, and `04_HERO_MOTION_STORYBOARD.md`'s own "Motion
+rules": no bounce/elastic easing, no scroll-jacking, animate transform/opacity first, test crop
+and focal point at all 7 breakpoints (390/430/768/1024/1280/1440/1728+).
 
 The Temple Gateway's final state (immersive, no UI, statement text) must visually resemble Temple
 Mode's own default state, so entering Temple Mode later doesn't feel like a discontinuous jump.
@@ -107,7 +116,7 @@ shorter travel distances, touch-first controls (no hover-dependent state). These
 
 ## 9. Frame-Sequence Readiness (future, not built now)
 
-Architecture note for `ASSET-PLAN.md`: when true rendered frame sequences are supplied (Temple
+Architecture note for `ASSET-PLAN-IMPLEMENTATION.md`: when true rendered frame sequences are supplied (Temple
 Gateway→Temple Mode, and optionally Meditation Hall intro — max two moments per the brief), the
 scroll-to-frame mapping is `frameIndex = Math.round(scrollProgress * (frameCount - 1))`, rendered
 to a `<canvas>`, with neighbor-frame preloading (not all frames upfront), `devicePixelRatio`-aware

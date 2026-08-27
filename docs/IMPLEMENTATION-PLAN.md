@@ -7,23 +7,20 @@ with specifics.
 
 ## Required Reading Status (per the official `CLAUDE.md`)
 
-`CLAUDE.md` requires reading, in order: `00_READ_ME_FIRST.md`, `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md`,
-`02_V5_MASTER_BUILD_DIRECTIVE.md`, `03_VISUAL_BIBLE.md`, `04_HERO_MOTION_STORYBOARD.md`,
-`05_ASSET_PLAN.md`, `06_PHASE_GATES_AND_PROMPTS.md`, `07_QA_ACCEPTANCE_CRITERIA.md`,
-`08_CONTENT_COPY_DECK.md`, `10_ARCHITECTURE_CONSTRAINTS.md` (and `09_IMAGE_GENERATION_PROMPTS.md`
-per `00_READ_ME_FIRST.md`). **Only 00, 01, and 02 were actually supplied and read.** Documents 03
-through 10 are referenced but were not included in the upload — this plan proceeds on 00–02 plus
-this project's own prior Phase 0/1 work, and flags every place a missing document's content would
-plausibly change a decision (see the risk list in the Phase 0 report). In particular
-`06_PHASE_GATES_AND_PROMPTS.md` is the document the V5 Build Directive names as authoritative for
-phase boundaries ("Follow the phase boundaries in `06_PHASE_GATES_AND_PROMPTS.md`") — since it's
-missing, this file's own phase breakdown (below) continues to serve as the working plan; it should
-be reconciled against `06` once supplied, per the cross-check in the section below.
+`CLAUDE.md` requires reading, in order: `00_READ_ME_FIRST.md` through `10_ARCHITECTURE_CONSTRAINTS.md`.
+**All 11 documents (00–10) are now supplied and read**, across three handoff messages. The phase
+breakdown below has been reconciled against `06_PHASE_GATES_AND_PROMPTS.md` — the document the V5
+Build Directive names as authoritative for phase boundaries — and now matches it exactly (see the
+former "Cross-Check" section, superseded below). No document content remains unread.
+
+The one thing still not supplied, despite three separate claims that it was: the actual Level-1
+hero binary asset. See `ASSET-PLAN-IMPLEMENTATION.md` §1 for the formal Hero Asset Verification
+Gate result (FAIL — asset not found).
 
 ## Phase 0 — Inspection & Planning (this phase)
 
 Read the brief, inspect the (empty) repository, produce this document plus `ARCHITECTURE.md`,
-`DESIGN-SYSTEM.md`, `MOTION-SPEC.md`, `ASSET-PLAN.md`. No application code. Self-review against
+`DESIGN-SYSTEM.md`, `MOTION-SPEC.md`, `ASSET-PLAN-IMPLEMENTATION.md`. No application code. Self-review against
 the brief before presenting for approval (see bottom of this file).
 
 ## Phase 1 — Foundation
@@ -44,98 +41,97 @@ Gate: typecheck, lint, tests (if any exist yet), production build, console/hydra
 responsive check at all 7 breakpoints for nav only, keyboard nav through the nav bar, reduced
 motion has no effect to verify yet (no motion shipped besides micro-interactions).
 
+## Hero Asset Verification Gate (per `06_PHASE_GATES_AND_PROMPTS.md`, runs before Phase 2)
+
+Verify exact file path, dimensions, format, absence of baked UI/text, composition, Buddha crop,
+and left-copy safe zone for the Level-1 hero. **Current result: FAIL — ASSET FOUND: NO.** Full
+gate output in `ASSET-PLAN-IMPLEMENTATION.md` §1. Phase 2 does not start until this gate passes.
+
 ## Phase 2 — Temple Gateway
 
-Scope: hero, image handling (Level 1 single image per `ASSET-PLAN.md`), navigation scroll
-behavior (transparent → glass), hero intro timeline, ambient effects, the signature Temple
-Gateway scroll transition per `MOTION-SPEC.md` §6. No later sections. **Gated on real hero asset
-delivery** (see `ASSET-PLAN.md` §5).
+Scope: hero, image handling (Level 1 single image per `ASSET-PLAN-IMPLEMENTATION.md` and
+`05_ASSET_PLAN.md`), navigation scroll behavior (transparent → glass), hero intro timeline,
+ambient effects, the signature Temple Gateway scroll transition per `MOTION-SPEC.md` §6 and the
+official `04_HERO_MOTION_STORYBOARD.md`. Level-1 single image only — no Level-2 depth layers,
+Three.js, WebGL, or frame sequences (`06_PHASE_GATES_AND_PROMPTS.md` explicitly excludes these
+from Phase 2). No later sections. **Gated on the Hero Asset Verification Gate above passing.**
 
-Gate: all of Phase 1's gate, plus GSAP ScrollTrigger cleanup verified (no accumulating triggers
-across re-renders/route changes), reduced-motion fallback verified against the strategy in
-`MOTION-SPEC.md` §7, Buddha framing checked at all 7 breakpoints, no horizontal overflow, scroll
-feels responsive (not over-smoothed/laggy).
+Gate: all of Phase 1's gate, plus every item in `07_QA_ACCEPTANCE_CRITERIA.md`'s Hero visual gate
+and Motion gate (one obvious focal point, Buddha fully visible and unobstructed, left-copy zone
+readable, gold restrained, camera illusion reads as entering the environment rather than the
+Buddha zooming toward the viewer, a meaningful period of visual silence, continuous handoff into
+Temple Mode, no bounce/elastic easing, scroll never hijacked, pinning selective, no fighting
+transforms), GSAP ScrollTrigger cleanup verified (no accumulating triggers across re-renders/route
+changes), reduced-motion fallback verified against `MOTION-SPEC.md` §7, Buddha framing checked at
+all 7 breakpoints, no horizontal overflow.
 
-## Phase 3 — Sanctuary Storytelling
+## Phase 3 — Discover
 
-Scope: Sanctuary Highlights, Ritual Actions, Guide Me, Temple preview link. Gate adds: touch
-interaction verified, Guide Me → Meditation Hall state handoff verified (state exists even though
-Meditation Hall itself isn't built yet — target a stub route/log).
+Scope: Sanctuary Highlights, Guide Me, ritual discovery (renamed from this plan's earlier
+"Sanctuary Storytelling" to match `06_PHASE_GATES_AND_PROMPTS.md`'s exact phase name — same
+scope). Gate adds: touch interaction verified, Guide Me → Meditation configuration state handoff
+verified (state exists even though Meditation Hall itself isn't built yet).
 
 ## Phase 4 — Temple Mode
 
 Scope: immersive Temple Mode — open/close, ritual dock, candle/bell/incense/lotus/reflection
-interactions, sound-toggle architecture (not full Sound Sanctuary yet). Gate adds: focus trap
-while Temple Mode is open, Escape/Close both work, Buddha never obstructed at any breakpoint,
-audio never autoplays.
+interactions, sound-toggle architecture (not full Sound Sanctuary yet). No autoplay. Gate adds:
+focus trap while Temple Mode is open, Escape/Close both work, Buddha never obstructed at any
+breakpoint, audio never autoplays.
 
-## Phase 5 — Meditation + Sound
+## Phase 5 — Breathe
 
 Scope: Meditation Hall, breathing mandala, duration selection, timer (start/pause/resume/finish/
-reset), Sound Sanctuary. Gate adds: timer accuracy under tab-visibility changes (backgrounded tab
-must not drift), audio cleanup on unmount/navigation (no orphaned playback), reduced-motion
-breathing state fully usable from text alone.
+reset), Sound Sanctuary, full audio lifecycle (renamed from "Meditation + Sound" to match
+`06_PHASE_GATES_AND_PROMPTS.md` — same scope). Gate adds: timer accuracy under tab-visibility
+changes (backgrounded tab must not drift), audio cleanup on unmount/navigation (no orphaned
+playback), reduced-motion breathing state fully usable from text alone.
 
-## Phase 6 — Reflection
+## Phase 6 — Reflect
 
-Scope: Daily Wisdom, Lotus Garden, Intention Sanctuary, Private Journal. `lib/storage` built here
-(first real caller). Gate adds: reload persistence verified for journal/intention, attribution
-rules verified in content (no invented Buddha quotes), character-limit enforcement on Intention
-(180 chars).
+Scope: Daily Wisdom, Lotus Garden, Intention Sanctuary, Private Journal (renamed from
+"Reflection" to match `06_PHASE_GATES_AND_PROMPTS.md` — same scope). `lib/storage` built here
+(first real caller), encapsulated per `10_ARCHITECTURE_CONSTRAINTS.md` §Persistence. Gate adds:
+reload persistence verified for journal/intention, attribution rules verified in content (no
+invented Buddha quotes — copy pulled from `08_CONTENT_COPY_DECK.md`), character-limit enforcement
+on Intention (180 chars).
 
-## Phase 7 — My Sanctuary
+## Phase 7 — Belong/Return
 
-Scope: logged-out + local-preview states only. No real auth. Gate adds: verify no fake statistics
-anywhere, verify object-based (not dashboard-KPI) presentation.
+Scope: My Sanctuary (logged-out + local-preview states, no real auth), Support presentation (no
+payment logic), closing cinematic scene, footer. **Merged from this plan's earlier separate
+Phase 7 (My Sanctuary) and Phase 8 (Closing + Support)** to match `06_PHASE_GATES_AND_PROMPTS.md`,
+which groups them as one phase. Gate adds: verify no fake statistics anywhere, verify object-based
+(not dashboard-KPI) My Sanctuary presentation, no fake payment processing.
 
-## Phase 8 — Closing + Support
+## Phase 8 — Dedicated Polish
 
-Scope: Support section presentation (no payment logic), closing cinematic scene, footer, legal
-nav placeholders.
+Scope: responsive art direction, accessibility, and performance optimization across the entire
+front end. **Merged from this plan's earlier separate Phase 9 (Responsive + Performance) and
+Phase 10 (Accessibility + QA)** to match `06_PHASE_GATES_AND_PROMPTS.md`. Dedicated pass across
+all 7 breakpoints for every shipped chapter — not just fixing obvious CSS breakage: image sources,
+scroll timeline/pin lengths, font sizing, spacing, touch targets, GPU cost, mobile layering,
+keyboard nav, focus management, screen-reader labels, audio controls, cross-browser (Chrome/
+Safari/Edge desktop + Safari iPhone + Chrome Android + tablet). Measure against LCP/CLS/INP
+targets from `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` §41 and the full `07_QA_ACCEPTANCE_CRITERIA.md`
+checklist.
 
-## Phase 9 — Responsive + Performance Pass
+## Phase 9+ — Backend (only after explicit approval)
 
-Dedicated pass across all 7 breakpoints for every shipped chapter — not just fixing obvious CSS
-breakage. Optimize image sources, scroll timeline/pin lengths, font sizing, spacing, touch
-targets, GPU cost, mobile layering. Measure against LCP/CLS/INP targets from
-`01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` §41 (Performance).
+Not started until the front-end prototype (Phases 1–8) is approved — matches
+`06_PHASE_GATES_AND_PROMPTS.md`'s "Phase 9+ — Backend only after explicit approval." Supabase-
+based: auth, journal_entries, intentions, wisdom_content, etc. per
+`01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` §44, plus the CMS/admin dashboard in §45–46 (see
+`ARCHITECTURE.md` §9). Payments (Stripe) and monetisation are a distinct, later sub-phase
+requiring separate explicit approval, never bundled with backend rollout, per
+`10_ARCHITECTURE_CONSTRAINTS.md`'s "Future backend" note.
 
-## Phase 10 — Accessibility + QA
+## Adopted Acceptance Bar
 
-Full keyboard nav, focus management, screen-reader labels, reduced motion, audio controls, and
-every interactive chapter (nav, Temple Mode, rituals, Guide Me, meditation, sound, journal,
-intention, My Sanctuary, footer) tested across Chrome/Safari/Edge desktop + Safari iPhone +
-Chrome Android + tablet.
-
-## Phase 11 — Backend (official brief's Phase 6, §68)
-
-Not started until the front-end prototype (Phases 1–10) is approved. Supabase-based: auth,
-journal_entries, intentions, wisdom_content, etc. per `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` §44
-(Backend architecture), plus the CMS/admin dashboard in §45–46 (see `ARCHITECTURE.md` §9).
-Payments (Stripe) are the official brief's separate Phase 7 (§68, "Monetisation") — a distinct,
-later sub-phase requiring separate explicit approval, never bundled with backend rollout.
-
-## Cross-Check Against the Official Brief's Own Phase Sequence (§68) and Quality Bar (§69)
-
-The official brief's own high-level sequence is: 1 Design system, 2 Cinematic environments
-(Hero/Temple Mode/Meditation Hall/Lotus Garden), 3 Core interactions (rituals/breathing/timer/
-audio), 4 Personal tools (Guide Me/Wisdom/Journal/Intentions/My Sanctuary), 5 Responsive polish,
-6 Backend, 7 Monetisation, 8 Launch QA. This plan's Phases 1–11 above are a finer-grained
-decomposition of the same sequence (one phase per chapter instead of one phase per group of
-chapters, each with its own explicit STOP gate) — every official phase maps onto a contiguous
-range here (official Phase 2 ≈ this plan's Phases 2, 4 [Temple Mode], 5 [Meditation Hall], and the
-Lotus Garden portion of Phase 6; official Phase 5 ≈ this plan's Phase 9; etc.). No content is
-dropped, nothing here contradicts §68 — it's a stricter subdivision with more approval
-checkpoints, which fits the brief's own §67 "Visual approval process" (Stage 1 visual system,
-Stage 2 core sanctuary, Stage 3 personal experience, Stage 4 responsive) more precisely than the
-brief's own rougher phase list does. Should `06_PHASE_GATES_AND_PROMPTS.md` arrive with a
-different intended breakdown, reconcile against it directly — it is the more authoritative source
-per the V5 Build Directive.
-
-The brief's §69 quality-bar table (art direction 95, colour 95, typography 92, hero 95, Temple
-Mode 95, meditation UX 92, mobile 90+, interaction 90+, performance 90+, accessibility 90+,
-overall 90–95) is adopted as-is as the acceptance bar for Phase 9/10's visual and QA gates —
-no reason to diverge from an explicit, numeric target the brief already sets.
+`07_QA_ACCEPTANCE_CRITERIA.md`'s target quality — 90+ across mobile, accessibility, performance,
+and interaction; 95-level craft for art direction, hero, and Temple Mode — is adopted as-is as the
+literal acceptance bar for Phase 8's polish gate, superseding this plan's earlier citation of the
+V4 brief's own §69 table (the two are consistent; §07 is the more specific, official source).
 
 ## Quality Gate Checklist (every phase)
 
@@ -144,7 +140,11 @@ clean · no hydration warnings · no horizontal overflow · no broken/missing as
 text · full keyboard flow · reduced motion verified · mobile verified · scroll restoration
 verified · resize behavior verified · GSAP context/ScrollTrigger cleanup verified · audio cleanup
 verified (once audio exists) · memory/perf spot-check where relevant. Any failure blocks marking
-the phase complete — fix and rerun, don't downgrade the bar.
+the phase complete — fix and rerun, don't downgrade the bar. This checklist is this project's own
+elaboration of `07_QA_ACCEPTANCE_CRITERIA.md`'s "Engineering gate for every phase" — the two agree;
+`07`'s Responsive/Accessibility/Motion/Product gates apply on top of this per-phase as relevant to
+what that phase ships (e.g. the Motion gate applies from Phase 2 onward, the Product/content gate
+from Phase 6 onward).
 
 ## Visual Quality Gate (every major scene, every phase)
 
@@ -177,7 +177,7 @@ forward verbatim. **PASS.**
 GSAP owns scroll/pin, Framer owns presence/menus, CSS owns micro-interactions. No conflict found.
 **PASS.**
 
-**Mobile-first-class:** `ASSET-PLAN.md` §3 requires separate art direction per breakpoint, not a
+**Mobile-first-class:** `ASSET-PLAN-IMPLEMENTATION.md` §3 requires separate art direction per breakpoint, not a
 crop-down; `MOTION-SPEC.md` §8 requires separate matchMedia branches, not scaled-down desktop
 timelines. **PASS.**
 
@@ -189,7 +189,7 @@ persisted data) and has been moved to Phase 6, its actual first caller.
 
 **Gap found and flagged (not silently corrected):** there is no real hero asset in the repository,
 and the Level-1 hero image is a hard prerequisite for Phase 2. This is called out in
-`ASSET-PLAN.md` §5 as a decision point for you, not something Phase 0 can resolve on its own.
+`ASSET-PLAN-IMPLEMENTATION.md` §5 as a decision point for you, not something Phase 0 can resolve on its own.
 
 **Gap found and flagged:** no font decision has been made (`DESIGN-SYSTEM.md` §2 uses placeholder
 family names). Real serif/sans selection should happen at the start of Phase 1 implementation, not
@@ -218,7 +218,7 @@ responsive/keyboard/reduced-motion all re-verified passing.
 
 **Gap found and flagged, not resolved:** `ASSET_STATUS.json` claims the Level-1 hero image is
 "supplied," but the actual PNG/JPG files were not included in this upload. Manifest and reality
-disagree; treating this as unresolved, not as delivered. See `ASSET-PLAN.md` §1.
+disagree; treating this as unresolved, not as delivered. See `ASSET-PLAN-IMPLEMENTATION.md` §1.
 
 **Gap found and flagged, not resolved:** `CLAUDE.md`'s required-reading list names 10 documents;
 only 3 were supplied. Missing: `03_VISUAL_BIBLE.md`, `04_HERO_MOTION_STORYBOARD.md`,
@@ -226,7 +226,7 @@ only 3 were supplied. Missing: `03_VISUAL_BIBLE.md`, `04_HERO_MOTION_STORYBOARD.
 `08_CONTENT_COPY_DECK.md`, `10_ARCHITECTURE_CONSTRAINTS.md` (plus `09_IMAGE_GENERATION_PROMPTS.md`
 referenced by `00_READ_ME_FIRST.md`). This plan continues to serve in place of the still-missing
 `06_PHASE_GATES_AND_PROMPTS.md`; the others most likely refine detail this project's own
-`DESIGN-SYSTEM.md`/`MOTION-SPEC.md`/`ASSET-PLAN.md` already cover from the earlier build
+`DESIGN-SYSTEM.md`/`MOTION-SPEC.md`/`ASSET-PLAN-IMPLEMENTATION.md` already cover from the earlier build
 conversation, but that can't be confirmed without reading them.
 
 **Stale section-number citations corrected:** several cross-references in `DESIGN-SYSTEM.md`,
@@ -240,3 +240,51 @@ percentages), labeled explicitly as this project's own addition rather than misa
 **Result: PASS.** The radius fast-follow is now applied and re-verified. The hero-asset gap and
 the seven missing documents remain the two open items blocking full confidence — Phase 1 needs no
 further changes, and Phase 2 remains blocked on the hero asset exactly as before.
+
+---
+
+## Phase 0 Self-Review, Pass 3 (complete document set, official phase gates)
+
+Performed after all remaining documents (`03`–`10`) arrived, completing the required-reading set,
+and after a `PHASE2_UNBLOCK_README.txt` claiming a full unblock package (docs + hero files) turned
+out to contain only the README and a duplicate `ASSET_STATUS.json` — the docs arrived separately
+and correctly in a later message; the hero files still have not arrived in any form that puts a
+file on disk.
+
+**Checked all 8 newly supplied documents against everything already built/documented:**
+- `03_VISUAL_BIBLE.md` — colors, typography scale, and card radius (20–28px) match
+  `DESIGN-SYSTEM.md` exactly, including the radius correction already applied. **PASS.**
+- `04_HERO_MOTION_STORYBOARD.md` — the official percentage-mapped storyboard (0–8% Emergence
+  through 95–100% Handoff) matches this project's own derived storyboard in `MOTION-SPEC.md` §6
+  almost exactly, same breakpoints, same intent (environment moves, not the Buddha). Relabeled
+  `MOTION-SPEC.md`'s stage names to the official ones and cited `04` directly. **PASS, no rework.**
+- `05_ASSET_PLAN.md` — confirms the Level-1/Level-2/section-environment/ritual-object structure
+  already in `ASSET-PLAN-IMPLEMENTATION.md`, and adds exact filenames (including responsive
+  derivatives not previously known) now recorded there. **PASS, extended.**
+- `06_PHASE_GATES_AND_PROMPTS.md` — the authoritative phase-boundary document. Found a real
+  structural gap: this plan had Phases 1–11 (one phase per chapter); the official document has
+  Phases 0–8 plus 9+ (grouping "My Sanctuary" with "Support/closing/footer" as one Phase 7, and
+  "Responsive" with "Accessibility/QA" as one Phase 8). **Corrected: phase list restructured to
+  match `06` exactly**, including adding the explicit Hero Asset Verification Gate `06` defines
+  between Phase 1 and Phase 2, which this project's Phase 0 work had described in prose but never
+  named or gated as its own checkpoint.
+- `07_QA_ACCEPTANCE_CRITERIA.md` — adopted as the literal acceptance bar (see "Adopted Acceptance
+  Bar" above), replacing this plan's earlier citation of the V4 brief's own rougher §69 table.
+- `08_CONTENT_COPY_DECK.md` — cross-checked against Phase 1's shipped `app/page.tsx`: the Phase 1
+  placeholder shell correctly does **not** use any real hero/chapter copy yet (that's Phase 2+
+  scope), so there's nothing to correct. Future phases must pull copy from this file verbatim.
+- `09_IMAGE_GENERATION_PROMPTS.md` — forward-looking generation prompts for Phase 4+ assets; no
+  action needed until those phases approach.
+- `10_ARCHITECTURE_CONSTRAINTS.md` — directory structure, state domains, storage/media/audio/
+  performance rules all match `ARCHITECTURE.md` almost exactly (including `lib/audio/`,
+  `lib/content/`, `types/`, all already planned). **PASS, no rework.**
+
+**Ran the Hero Asset Verification Gate** (§ new, defined in `06`) for the first time — result FAIL,
+full detail in `ASSET-PLAN-IMPLEMENTATION.md` §1. This is now the third time an upload claimed the
+hero asset was supplied without an actual file arriving; the report to the user is explicit about
+exactly what delivery mechanism is needed (a real file attachment, not a manifest/README/inline
+chat image).
+
+**Result: PASS.** All required reading is complete. The phase-boundary structure now exactly
+matches the authoritative `06_PHASE_GATES_AND_PROMPTS.md`. The sole remaining blocker for Phase 2
+is the hero asset itself.

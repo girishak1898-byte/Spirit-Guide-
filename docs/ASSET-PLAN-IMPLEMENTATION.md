@@ -1,30 +1,56 @@
-# ASSET-PLAN.md — Spirit Guide V5
+# ASSET-PLAN-IMPLEMENTATION.md — Spirit Guide V5
 
-## 1. Current State (critical gap — updated, still unresolved)
+This is Claude's own implementation-facing asset plan (named per `06_PHASE_GATES_AND_PROMPTS.md`'s
+Phase 1 prompt), distinct from the officially supplied `05_ASSET_PLAN.md`, which is the source
+manifest of record. Where they overlap, `05_ASSET_PLAN.md` wins; this document adds engineering
+detail (build order, responsive/format strategy, directory conventions) on top of it.
 
-**No image, audio, or font asset files exist in this repository.** `public/assets/ASSET_STATUS.json`
-(supplied in the official handoff pack) claims the Level-1 Temple Gateway hero is "supplied" at
-`public/assets/hero/hero-sanctuary-level1-source.png` (1672×941 native) with a dimension-contract
-derivative at `public/assets/hero/hero-sanctuary-level1-3840x2160.jpg` (explicitly flagged in the
-manifest as *upscaled from the native source, not true additional-detail 4K* — replace before
-final launch). **Neither file was actually included in this upload batch** — only the JSON
-manifest describing them arrived. `public/assets/hero/` is empty. This is a manifest/asset
-mismatch, not a resolved delivery — see the request at the bottom of this section.
+## 1. Current State (critical gap — third check, still unresolved)
 
-The V4 UI reference screenshot and the visual production-pipeline board referenced in
-`00_READ_ME_FIRST.md` ("Ready now") are in the same state: referenced as available, not actually
-present in this session. Per the brief, none of these may be replaced with unrelated stock or
-generic AI imagery if/when building proceeds — the correct action is to request the actual files,
-which this report does.
+**No image, audio, or font asset files exist in this repository.** This has now been checked
+three times across three separate handoff attempts, each claiming the hero asset was supplied:
+
+1. First `ASSET_STATUS.json` — claimed supplied, files absent.
+2. `PHASE2_UNBLOCK_README.txt` — claimed a package with `docs/03`–`10` and the hero files was
+   included; only the README and a second, identical `ASSET_STATUS.json` actually arrived as
+   files (the docs did arrive in a later message and are now in place — see the Required Reading
+   Status update in `IMPLEMENTATION-PLAN.md`).
+3. Several images were shown inline in the chat itself (visible to me, four Buddha/temple
+   sanctuary renders across two messages). **These are not usable as production assets**: an
+   inline chat image has no filesystem path, so there is nothing to copy into
+   `public/assets/hero/`. Only an actual file attachment (the same mechanism that successfully
+   delivered `CLAUDE.md` and `docs/00`–`10`) puts a file on disk that the build can reference.
+
+**Hero Asset Verification Gate result** (per `06_PHASE_GATES_AND_PROMPTS.md`'s exact gate),
+checked against every path `05_ASSET_PLAN.md` names:
+
+```
+ASSET FOUND: NO
+  hero-sanctuary-level1-source.png              — MISSING
+  hero-sanctuary-level1-3840x2160.jpg           — MISSING
+  hero-sanctuary-level1-2560.webp               — MISSING
+  hero-sanctuary-level1-1920.webp               — MISSING
+  hero-sanctuary-level1-1440.webp               — MISSING
+  hero-sanctuary-level1-1024.webp               — MISSING
+  hero-sanctuary-level1-mobile-fallback-1200x1500.webp — MISSING
+  reference/spirit-guide-reference-ui.png       — MISSING
+  reference/visual-asset-production-board.png   — MISSING
+DIMENSIONS: n/a (no file to measure)
+FORMAT: n/a
+COMPOSITION PASS: cannot evaluate — no file
+BUDDHA CROP PASS: cannot evaluate — no file
+LEFT COPY SAFE-ZONE PASS: cannot evaluate — no file
+PHASE 2 READY: NO
+```
 
 This blocks all of Phase 2 (Temple Gateway) and any later chapter that needs cinematic imagery.
 Phase 1 does not require any image asset and is unaffected — it already shipped and passed its
 quality gate.
 
-**Action needed:** please attach the actual binary files — at minimum
-`hero-sanctuary-level1-source.png` (and, if you want Phase 2 layout/motion validation on the
-larger derivative, `hero-sanctuary-level1-3840x2160.jpg`) — plus the UI reference image and
-production board if you'd like them cross-checked before Phase 2 begins.
+**Action needed:** attach the actual binary file(s) as a file upload — at minimum
+`hero-sanctuary-level1-source.png` — the same way `CLAUDE.md` and the numbered docs were
+successfully delivered. A manifest, a README describing a package, or an image rendered inline in
+the chat does not put a file on disk and cannot pass this gate.
 
 ## 2. Hero Asset Levels (build order — do not skip ahead)
 
