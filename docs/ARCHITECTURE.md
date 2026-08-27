@@ -199,9 +199,9 @@ implementation against the now-supplied `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` and
   match exactly — the official brief confirms rather than contradicts what shipped.
 - Nav items (Temple/Meditate/Wisdom/Rituals/Journal/My Sanctuary + Enter Temple CTA), mobile
   full-height panel behavior, and the scroll-driven glass nav all match §5 of the official brief.
-- **One real gap found:** the official brief's §62 radius system (buttons 999px pill or 14–18px,
-  cards 20–28px, large environments 28–36px, inputs 14–18px) is larger and more deliberate than
-  the generic 4/8/16px scale Phase 1 shipped with. `Button.tsx` and `Container.tsx` use an 8px
-  Tailwind default that predates this. Corrected token values now live in `DESIGN-SYSTEM.md` §4;
-  applying them to the two components is a small, contained fast-follow, not a rebuild.
+- **One real gap found and fixed:** the official brief's §62 radius system (buttons 999px pill or
+  14–18px, cards 20–28px, large environments 28–36px, inputs 14–18px) was larger and more
+  deliberate than the generic 4/8/16px scale Phase 1 originally shipped with. Corrected token
+  values now live in `DESIGN-SYSTEM.md` §4 and are applied in `Button.tsx`; re-verified with the
+  full quality gate.
 - No other rework identified — colors, spacing, motion, and nav all still match.

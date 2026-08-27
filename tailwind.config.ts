@@ -50,9 +50,12 @@ const config: Config = {
         10: "var(--space-10)",
       },
       borderRadius: {
-        sm: "var(--radius-sm)",
-        md: "var(--radius-md)",
-        lg: "var(--radius-lg)",
+        focus: "var(--radius-focus)",
+        button: "var(--radius-button)",
+        pill: "var(--radius-button-pill)",
+        input: "var(--radius-input)",
+        card: "var(--radius-card)",
+        environment: "var(--radius-environment)",
       },
       boxShadow: {
         elevated: "var(--shadow-elevated)",

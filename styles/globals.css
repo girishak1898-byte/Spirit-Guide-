@@ -24,7 +24,7 @@ body {
 :focus-visible {
   outline: none;
   box-shadow: var(--shadow-focus);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-focus);
 }
 
 @media (prefers-reduced-motion: reduce) {

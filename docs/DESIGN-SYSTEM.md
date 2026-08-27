@@ -98,11 +98,11 @@ larger, more deliberate radius system than Phase 1 shipped with (see §10 gap no
 }
 ```
 
-**Known Phase 1 gap (flagged during this reconciliation, not yet fixed):** `Button.tsx` and
-`Container.tsx` currently use a generic `rounded-md` (8px) Tailwind utility predating this
-corrected scale. This needs a small follow-up edit — swap to `--radius-button`/`--radius-card` —
-before Phase 1 is considered visually final. Not fixed in this Phase 0 pass since it's an
-application-code change and this pass is docs-only.
+**Resolved:** `Button.tsx` now uses `rounded-button` (16px, `--radius-button`);
+`tailwind.config.ts` and `styles/tokens.css` expose the full named scale
+(`focus`/`button`/`pill`/`input`/`card`/`environment`). `Container.tsx` intentionally has no
+radius — it's a full-bleed layout wrapper, not a card. Re-verified with typecheck/lint/tests/
+build/responsive/keyboard/reduced-motion after the change — all still pass.
 
 Glassmorphism is restrained and purposeful: only the navigation bar (post-scroll), Temple Mode's
 ritual dock, and modal/menu surfaces use `--glass-surface` + `--glass-blur`. It is never a default

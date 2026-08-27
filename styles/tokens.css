@@ -59,10 +59,13 @@
   --space-9: 96px;
   --space-10: 128px;
 
-  /* Radius / shadow */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  /* Radius / shadow — per docs/DESIGN-SYSTEM.md §4 (V4 brief §62) */
+  --radius-focus: 4px; /* generic small rounding for the focus-ring affordance only, not a component radius */
+  --radius-button: 16px;
+  --radius-button-pill: 999px;
+  --radius-input: 16px;
+  --radius-card: 24px;
+  --radius-environment: 32px;
   --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-focus: 0 0 0 2px var(--bg-primary-1), 0 0 0 4px var(--gold-primary);
 

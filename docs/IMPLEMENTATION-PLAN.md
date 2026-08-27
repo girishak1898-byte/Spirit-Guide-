@@ -210,11 +210,11 @@ Performed after `CLAUDE.md`, `00_READ_ME_FIRST.md`, `01_SPIRIT_GUIDE_V4_MASTER_B
 spacing scale, the 7-chapter narrative grouping, motion-ownership rules, and nav structure all
 match what Phase 0 Pass 1 already produced — no contradiction. **PASS.**
 
-**Gap found and corrected:** the official brief's §62 radius system (buttons 999px pill or
-14–18px, cards 20–28px, environments 28–36px) is more deliberate than the 4/8/16px scale Phase 1
-shipped with. Corrected token values now in `DESIGN-SYSTEM.md` §4; flagged as a small, contained
-fast-follow to `Button.tsx`/`Container.tsx` (not done in this Phase-0-only pass — application code
-is out of scope here).
+**Gap found and fixed (post-approval fast-follow):** the official brief's §62 radius system
+(buttons 999px pill or 14–18px, cards 20–28px, environments 28–36px) was more deliberate than the
+4/8/16px scale Phase 1 shipped with. Corrected token values now in `DESIGN-SYSTEM.md` §4, applied
+to `styles/tokens.css`, `tailwind.config.ts`, and `Button.tsx`; typecheck/lint/tests/build/
+responsive/keyboard/reduced-motion all re-verified passing.
 
 **Gap found and flagged, not resolved:** `ASSET_STATUS.json` claims the Level-1 hero image is
 "supplied," but the actual PNG/JPG files were not included in this upload. Manifest and reality
@@ -237,6 +237,6 @@ Reject list) or, where the earlier conversation supplied detail the official bri
 (the second-by-second hero intro timeline; the precise 0–100% Temple Gateway storyboard
 percentages), labeled explicitly as this project's own addition rather than misattributed to V4.
 
-**Result: PASS**, with the hero-asset gap and the seven missing documents carried forward as the
-two open items blocking full confidence — Phase 1 needs no further changes beyond the small radius
-fast-follow noted above, and Phase 2 remains blocked on the hero asset exactly as before.
+**Result: PASS.** The radius fast-follow is now applied and re-verified. The hero-asset gap and
+the seven missing documents remain the two open items blocking full confidence — Phase 1 needs no
+further changes, and Phase 2 remains blocked on the hero asset exactly as before.

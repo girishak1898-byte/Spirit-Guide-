@@ -18,7 +18,7 @@ export function Button({ variant = "primary", className, children, ...props }: B
   return (
     <button
       className={cn(
-        "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md px-6 text-ui-label font-medium tracking-wide transition-colors duration-ui ease-premium",
+        "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-button px-6 text-ui-label font-medium tracking-wide transition-colors duration-ui ease-premium",
         variant === "primary" &&
           "border border-gold-primary bg-gold-primary text-bg-primary-1 hover:bg-gold-secondary hover:border-gold-secondary",
         variant === "secondary" &&
