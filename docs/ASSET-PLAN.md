@@ -75,6 +75,50 @@ never manufactured by duplicating one still image.
 - Bell audio sample (high-quality, natural decay) — Phase 3/4
 - Sound Sanctuary loops: Temple, Rain, Forest, Singing Bowls, River (seamless loops) — Phase 5
 
+## 4a. Production Pipeline (from supplied visual asset pipeline guide)
+
+A visual production-pipeline reference has been supplied (infographic, not exported assets — it
+contains baked-in labels/checkmarks and thumbnail-resolution previews, so it cannot be used
+directly as a source file). It independently confirms the Level-2 layer split in §2 above
+(far environment / Buddha midground / foreground objects / haze-smoke / light overlay /
+CSS vignette) and adds the following specifics, now adopted:
+
+**Master sizes:** Hero/Temple Mode master 3840×2160 (16:9); other section scenes 3000×2000–
+3200×1800; ritual objects 1000–1600px square, isolated on transparent/neutral background;
+animation frame sequences 1920×1080; icons/UI 512–1024px.
+
+**Formats:** AVIF + WebP for all photographic/environment assets (responsive at 1920/1440/1024/
+mobile widths); WebP/PNG (transparent) for isolated ritual objects; AVIF sequence for animation
+frames; SVG/PNG for icons.
+
+**Per-scene asset list** (beyond the hero, one dominant image per scene — matches V4's "one
+image, one statement" rule for Sanctuary Highlights):
+Temple Mode · Meditation Hall · Lotus Garden · Daily Wisdom · Private Journal · My Sanctuary ·
+Support Sanctuary · Closing Sanctuary — each a single cinematic master image, later croppable per
+breakpoint, no baked-in text/UI (mirrors the hero rule in §2).
+
+**Ritual objects (isolated, transparent bg):** Candle (unlit/lit states), Bell, Incense Bowl,
+Lotus (closed/open states, ~8-frame bloom sequence for a smoother open animation if warranted),
+Reflection/Journal object. Multiple states are prepared as separate exports, not CSS-filtered
+recolors of one asset, so lit/unlit or closed/open reads as a real state change.
+
+**Workflow:** lock the visual bible (identity/palette/lighting) once → generate concept options →
+select and refine → separate into depth layers (Photoshop or equivalent) → isolate ritual objects
+with clean edges → export in AVIF/WebP at the responsive sizes above → integrate with GSAP/React.
+Consistency across scenes (architecture, materials, lighting, palette) matters more than variety
+per the guide's own note — every scene must read as the same physical sanctuary.
+
+**Quality checklist before any asset is accepted into the repo:** consistent architecture/
+lighting across all scenes · Buddha always clear and unobstructed · left-side negative space
+preserved in the hero for headline/CTA · palette matches the midnight/ivory/champagne/jade tokens
+in `DESIGN-SYSTEM.md` (no flat or neon lighting) · no text, UI, or watermarks baked into any
+asset · responsive formats exported · objects isolated with clean edges · animation states
+prepared where the interaction needs them (candle flame, lotus bloom).
+
+This does not change the Level 1 → 2 → 3 build order in §2 — Level 1 (single hero master, no
+layers yet) is still the Phase 2 target; the layer/object list above is the target state once
+Level 2 work begins.
+
 ## 5. Immediate Action Needed From You
 
 Before Phase 2 can start, we need one of:

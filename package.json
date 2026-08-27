@@ -1,0 +1,40 @@
+{
+  "name": "spirit-guide",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "qa:visual": "bash -c 'next build && (QA_PORT=4300 next start -p 4300 & echo $! > /tmp/spirit-guide-qa.pid) && sleep 3 && QA_PORT=4300 node scripts/phase1-qa.mjs && QA_PORT=4300 node scripts/phase1-qa-a11y.mjs; kill $(cat /tmp/spirit-guide-qa.pid) 2>/dev/null'"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "motion": "^11.11.17",
+    "next": "^15.5.24",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.16.11",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.5.24",
+    "jsdom": "^25.0.1",
+    "playwright": "^1.48.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.2"
+  }
+}
