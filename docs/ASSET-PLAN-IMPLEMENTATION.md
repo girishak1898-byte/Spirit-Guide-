@@ -52,6 +52,14 @@ quality gate.
 successfully delivered. A manifest, a README describing a package, or an image rendered inline in
 the chat does not put a file on disk and cannot pass this gate.
 
+**Fourth attempt, still unresolved:** a `HERO_ASSET_INSTALL.txt` (install instructions naming the
+exact 7 target paths) and a `HERO_ASSET_SHA256.txt` (real-looking SHA256 hashes for each of those
+7 files) arrived. The checksums imply the actual files exist somewhere, but — same as attempts
+1–3 — no binary file itself was included; only text describing/fingerprinting it. Whatever process
+is generating these handoff packages is not attaching the binary payload, only sidecar text.
+Two more inline chat images were also shown (visible, not files). Status unchanged: ASSET FOUND:
+NO, PHASE 2 READY: NO.
+
 ## 2. Hero Asset Levels (build order — do not skip ahead)
 
 **Level 1 — Single image (Phase 2 target):** one high-resolution (~3840×2160) hero image with
