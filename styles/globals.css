@@ -10,7 +10,15 @@ body {
   margin: 0;
   background-color: var(--bg-primary-1);
   color: var(--ink-primary);
-  overflow-x: hidden;
+  /* `clip`, not `hidden`: per the CSS Overflow spec, setting overflow-x to
+     any non-"visible" value forces overflow-y to compute as "auto" too,
+     which silently turns html/body into scroll containers distinct from
+     the real viewport scroller. That breaks `position: sticky` for any
+     descendant — found via Phase 2's Temple Gateway, whose entire scroll
+     scene (docs/MOTION-SPEC.md §6) depends on sticky pinning actually
+     holding. `clip` prevents the same horizontal overflow without
+     triggering that coupling rule. */
+  overflow-x: clip;
 }
 
 * {

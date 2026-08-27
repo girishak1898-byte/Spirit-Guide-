@@ -29,6 +29,9 @@ export function useGatewayTimeline(refs: GatewayRefs) {
       const ritualItems = refs.dockRef.current
         ? gsap.utils.selector(refs.dockRef.current)(".gateway-ritual-item")
         : [];
+      const ritualShell = refs.dockRef.current
+        ? gsap.utils.selector(refs.dockRef.current)(".gateway-ritual-shell")
+        : [];
 
       const mm = gsap.matchMedia();
 
@@ -106,8 +109,16 @@ export function useGatewayTimeline(refs: GatewayRefs) {
           to(refs.artworkLayerRef.current, { scale: scaleAt(0.125) }, 0.15);
           to(refs.vignetteRef.current, { opacity: 0.12 }, 0.15);
 
-          // 0.25–0.38 — Focus
+          // 0.25–0.38 — Focus. "Primary statement remains" per the storyboard —
+          // everything else, including the supporting paragraph and spiritual
+          // note parked at 0.4 opacity since Invitation, must fully clear by
+          // here so Pure Sanctuary (0.65+) genuinely has no marketing copy on
+          // screen. Previously these two were never taken past 0.4, leaving
+          // ghostly lingering text through Pure Sanctuary and the Handoff
+          // statement — a real gap the real hero asset's visual QA exposed.
           to(refs.eyebrowRef.current, { opacity: 0 }, 0.25);
+          to(refs.supportingRef.current, { opacity: 0 }, 0.25);
+          to(refs.spiritualNoteRef.current, { opacity: 0 }, 0.25);
           to(refs.artworkLayerRef.current, { scale: scaleAt(0.225) }, 0.25);
           to(refs.illuminationRef.current, { opacity: useIllumination ? 0.05 : 0 }, 0.25);
 
@@ -139,6 +150,7 @@ export function useGatewayTimeline(refs: GatewayRefs) {
 
           // 0.95–1.00 — Handoff. End-state should visually match Temple Mode's
           // own opening state — no black gap, no unrelated scene load.
+          to(ritualShell, { opacity: 1 }, 0.95);
           to(ritualItems, { opacity: 1, stagger: 0.03 }, 0.95);
         },
       );

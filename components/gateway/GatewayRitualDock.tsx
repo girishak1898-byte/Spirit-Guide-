@@ -17,7 +17,7 @@ interface GatewayRitualDockProps {
 export function GatewayRitualDock({ dockRef }: GatewayRitualDockProps) {
   return (
     <div ref={dockRef} className="pointer-events-none absolute inset-x-0 bottom-10 z-content flex justify-center">
-      <div className="flex gap-2 rounded-card border border-border-subtle bg-[var(--glass-surface)] px-3 py-2 backdrop-blur-[var(--glass-blur)] sm:gap-4 sm:px-5">
+      <div className="gateway-ritual-shell flex gap-2 rounded-card border border-border-subtle bg-[var(--glass-surface)] px-3 py-2 opacity-0 backdrop-blur-[var(--glass-blur)] sm:gap-4 sm:px-5">
         {GATEWAY_CONTENT.ritualLabels.map((label) => (
           <span
             key={label}

@@ -6,7 +6,7 @@ import type { HeroMediaStatus } from "@/lib/content/heroMedia";
 
 interface GatewayArtworkProps {
   media: HeroMediaStatus;
-  /** Transform-origin target (approximate on-image position of the Buddha), e.g. "62% 42%". Scaling from this point keeps the subject visually anchored while the environment around it grows — see docs/MOTION-SPEC.md §6 design intent. */
+  /** Transform-origin target — the Buddha's measured on-image position (see HERO_FOCAL_ORIGIN in lib/content/heroMedia.ts). Scaling from this point keeps the subject visually anchored while the environment around it grows — see docs/MOTION-SPEC.md §6 design intent. */
   focalOrigin: string;
   layerRef: Ref<HTMLDivElement>;
   vignetteRef: Ref<HTMLDivElement>;

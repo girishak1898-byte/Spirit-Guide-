@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import type { HeroMediaStatus } from "@/lib/content/heroMedia";
+import { HERO_FOCAL_ORIGIN } from "@/lib/content/heroMediaConstants";
 import { GatewayCopy } from "./GatewayCopy";
 import { GATEWAY_CONTENT } from "./gatewayContent";
-
-const FOCAL_ORIGIN = "62% 42%";
 
 function StaticArtwork({ media }: { media: HeroMediaStatus }) {
   return (
@@ -18,14 +17,14 @@ function StaticArtwork({ media }: { media: HeroMediaStatus }) {
           priority
           sizes="100vw"
           className="object-cover"
-          style={{ objectPosition: FOCAL_ORIGIN }}
+          style={{ objectPosition: HERO_FOCAL_ORIGIN }}
         />
       ) : (
         <div
           aria-hidden="true"
           className="h-full w-full"
           style={{
-            background: `radial-gradient(circle at ${FOCAL_ORIGIN}, var(--gold-primary) 0%, transparent 28%), radial-gradient(circle at ${FOCAL_ORIGIN}, var(--surface-elevated-2) 0%, var(--bg-primary-1) 60%)`,
+            background: `radial-gradient(circle at ${HERO_FOCAL_ORIGIN}, var(--gold-primary) 0%, transparent 28%), radial-gradient(circle at ${HERO_FOCAL_ORIGIN}, var(--surface-elevated-2) 0%, var(--bg-primary-1) 60%)`,
             opacity: 0.5,
           }}
         />

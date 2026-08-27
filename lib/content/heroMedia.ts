@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
+import { HERO_ALT, HERO_HEIGHT, HERO_PUBLIC_PATH, HERO_WIDTH } from "./heroMediaConstants";
 
 /**
  * Server-only. Resolves whether the Level-1 hero asset physically exists in
@@ -12,14 +13,16 @@ import path from "node:path";
  * component changes, no fallback prop to flip, nothing to rewrite.
  *
  * Canonical path per docs/05_ASSET_PLAN.md / public/assets/ASSET_STATUS.json.
+ *
+ * Deliberately kept separate from heroMediaConstants.ts: this module
+ * imports node:fs/node:path, so it must never be imported by a "use
+ * client" component — doing so once already broke the production build
+ * (webpack refuses to bundle node:fs for the browser). Client components
+ * needing HERO_FOCAL_ORIGIN or similar import heroMediaConstants.ts
+ * directly instead.
  */
 
-const HERO_PUBLIC_PATH = "/assets/hero/hero-sanctuary-level1-source.png";
 const HERO_FS_PATH = path.join(process.cwd(), "public", "assets", "hero", "hero-sanctuary-level1-source.png");
-
-// Native generated-source dimensions per public/assets/ASSET_STATUS.json.
-const HERO_WIDTH = 1672;
-const HERO_HEIGHT = 941;
 
 export interface HeroMediaStatus {
   available: boolean;
@@ -35,6 +38,6 @@ export function getHeroMediaStatus(): HeroMediaStatus {
     src: HERO_PUBLIC_PATH,
     width: HERO_WIDTH,
     height: HERO_HEIGHT,
-    alt: "The Spirit Guide sanctuary: a candlelit Buddha shrine deep within a midnight temple, lotus flowers resting on still water.",
+    alt: HERO_ALT,
   };
 }

@@ -9,9 +9,7 @@ import { GatewayRitualDock } from "./GatewayRitualDock";
 import { GatewayStillness } from "./GatewayStillness";
 import { useGatewayTimeline } from "./useGatewayTimeline";
 import type { HeroMediaStatus } from "@/lib/content/heroMedia";
-
-/** Approximate on-image position of the Buddha in the reference composition — see docs/MOTION-SPEC.md §6. Tune once the real asset's exact pixel coordinates are known. */
-const FOCAL_ORIGIN = "62% 42%";
+import { HERO_FOCAL_ORIGIN } from "@/lib/content/heroMediaConstants";
 
 /**
  * The full cinematic Temple Gateway — GSAP-driven, scroll-scrubbed. Only
@@ -75,7 +73,7 @@ export function TempleGatewayScene({ media }: { media: HeroMediaStatus }) {
     >
       <GatewayArtwork
         media={media}
-        focalOrigin={FOCAL_ORIGIN}
+        focalOrigin={HERO_FOCAL_ORIGIN}
         layerRef={artworkLayerRef}
         vignetteRef={vignetteRef}
         illuminationRef={illuminationRef}
