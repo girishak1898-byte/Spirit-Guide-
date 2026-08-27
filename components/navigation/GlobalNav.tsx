@@ -11,8 +11,15 @@ import { SpiritGuideMark } from "./SpiritGuideMark";
 
 /**
  * Desktop: nearly transparent over the hero, interpolating to a restrained
- * midnight-glass surface as the visitor scrolls (docs/SPIRIT-GUIDE-V4.md §3).
+ * midnight-glass surface as the visitor scrolls (docs/01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md §5).
  * Mobile: logo + menu trigger, delegating the full-height menu to MobileNav.
+ *
+ * `data-gateway-nav` is a hook for the Temple Gateway's own GSAP timeline
+ * (Phase 2) to animate this header's `opacity` during specific storyboard
+ * stages ("Leaving the Website", "Temple Identity") — a property this
+ * component itself never touches, so there's no ownership conflict with
+ * the `scrolled`-driven background/border/blur above per
+ * docs/MOTION-SPEC.md §1.
  */
 export function GlobalNav() {
   const scrolled = useScrolled();
@@ -21,6 +28,7 @@ export function GlobalNav() {
 
   return (
     <header
+      data-gateway-nav
       className={cn(
         "fixed inset-x-0 top-0 z-nav transition-all duration-ui ease-premium",
         scrolled

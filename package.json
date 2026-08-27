@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "qa:visual": "bash -c 'next build && (QA_PORT=4300 next start -p 4300 & echo $! > /tmp/spirit-guide-qa.pid) && sleep 3 && QA_PORT=4300 node scripts/phase1-qa.mjs && QA_PORT=4300 node scripts/phase1-qa-a11y.mjs; kill $(cat /tmp/spirit-guide-qa.pid) 2>/dev/null'"
+    "qa:visual": "bash -c 'next build && (QA_PORT=4300 next start -p 4300 & echo $! > /tmp/spirit-guide-qa.pid) && sleep 3 && QA_PORT=4300 node scripts/phase1-qa.mjs && QA_PORT=4300 node scripts/phase1-qa-a11y.mjs && QA_PORT=4300 node scripts/phase2-qa.mjs && QA_PORT=4300 node scripts/phase2-hydration-check.mjs; kill $(cat /tmp/spirit-guide-qa.pid) 2>/dev/null'"
   },
   "dependencies": {
     "gsap": "^3.12.5",

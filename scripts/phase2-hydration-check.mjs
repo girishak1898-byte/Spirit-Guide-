@@ -1,0 +1,11 @@
+import { chromium } from "playwright";
+const PORT = process.env.QA_PORT ?? "4300";
+const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium" });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+const logs = [];
+page.on("console", (msg) => logs.push(`${msg.type()}: ${msg.text()}`));
+page.on("pageerror", (e) => logs.push(`pageerror: ${e}`));
+await page.goto(`http://localhost:${PORT}/`, { waitUntil: "networkidle" });
+await page.waitForTimeout(500);
+console.log(logs.length === 0 ? "CLEAN — no console output at all" : logs.join("\n"));
+await browser.close();
