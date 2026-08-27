@@ -62,7 +62,7 @@ ScrollTrigger with `scrub: 1`, split into labeled segments so each state is inde
 
 | Progress | State | Behavior |
 |---|---|---|
-| 0–0.08 | Darkness → resolve | Background exists at `--bg-primary-1`; hero image crossfades in per the intro timeline in V4 §4 (this only applies to true first-load, not to scroll re-entry) |
+| 0–0.08 | Darkness → resolve | Background exists at `--bg-primary-1`; hero image crossfades in per this project's own second-by-second intro timeline (not in the official V4 brief, which covers hero composition/effects/loading at a higher level in §6–8 — a blurred low-res placeholder transitioning to full-res, per V4 §8). This only applies to true first-load, not to scroll re-entry. |
 | 0.08–0.15 | Arrival | Full hero visible: eyebrow, headline, supporting copy, both CTAs, spiritual note, nav all present. Artwork scale 1.00. Small ambient movement only. |
 | 0.15–0.25 | Invitation | Secondary paragraph opacity 1→0.4, secondary CTA and spiritual note begin fading. Artwork scale → ~1.025. |
 | 0.25–0.38 | Focus | Secondary CTA and eyebrow fully gone. Hero copy remains. Foreground (if layered) shifts fractionally faster than background. Candlelight +3%. |
@@ -113,3 +113,26 @@ scroll-to-frame mapping is `frameIndex = Math.round(scrollProgress * (frameCount
 to a `<canvas>`, with neighbor-frame preloading (not all frames upfront), `devicePixelRatio`-aware
 source selection, a static-image fallback, and full respect for the reduced-motion strategy above.
 Not implemented until real frames exist — do not build this in Phase 1 or 2.
+
+## 10. Reconciliation with the Official V4 Brief (§33–35)
+
+The official `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` §33 ("Microinteraction system") independently
+confirms the restraint rules here — no bounce, no playful motion — and adds concrete per-element
+notes not previously captured:
+
+- Buttons: 1–2px elevation, slight highlight, subtle gold shift (not the 2–4px this spec's
+  ritual-object guidance uses elsewhere — buttons get the smaller, more restrained value).
+- Cards: tiny perspective/depth response (a few degrees of 3D tilt or shadow shift), not just flat
+  elevation.
+- Navigation: smooth active indicator (small champagne/jade mark under the active chapter link).
+- Images: very slight scale only when it serves a purpose — never decorative.
+- "Scroll reveals: 250–500ms" is the brief's own general guideline for simple in-view reveals.
+  This spec's `--duration-editorial` (600–1000ms) is intentionally slower and reserved
+  specifically for hero/section *emotional statements* (per V4 §3's typography intent and the
+  more detailed V5 storyboard in §6 above) — general-purpose reveals (e.g. a card fading into
+  view) should use `--duration-ui` (250–450ms), which already sits inside the brief's 250–500ms
+  band. No contradiction, but future components should pick the right token: editorial for
+  statements, ui for everything else.
+- §35 confirms: natural scroll only, no scroll-jacking, sticky positioning used selectively (its
+  own example — Meditation Hall visual staying fixed while explanation text scrolls — is a good
+  concrete case for Phase 5, not previously spelled out).

@@ -1,15 +1,30 @@
 # ASSET-PLAN.md — Spirit Guide V5
 
-## 1. Current State (critical gap)
+## 1. Current State (critical gap — updated, still unresolved)
 
-**No image, audio, or font assets exist in this repository.** `public/assets/` was created empty
-during Phase 0. The reference screenshot shared in chat is a *composited UI mock* (it contains
-baked-in navigation, cards, and text) — per the brief it must **not** be used as the production
-hero asset. It's the art-direction reference only: Buddha placement, candlelight palette, temple
-architecture style.
+**No image, audio, or font asset files exist in this repository.** `public/assets/ASSET_STATUS.json`
+(supplied in the official handoff pack) claims the Level-1 Temple Gateway hero is "supplied" at
+`public/assets/hero/hero-sanctuary-level1-source.png` (1672×941 native) with a dimension-contract
+derivative at `public/assets/hero/hero-sanctuary-level1-3840x2160.jpg` (explicitly flagged in the
+manifest as *upscaled from the native source, not true additional-detail 4K* — replace before
+final launch). **Neither file was actually included in this upload batch** — only the JSON
+manifest describing them arrived. `public/assets/hero/` is empty. This is a manifest/asset
+mismatch, not a resolved delivery — see the request at the bottom of this section.
+
+The V4 UI reference screenshot and the visual production-pipeline board referenced in
+`00_READ_ME_FIRST.md` ("Ready now") are in the same state: referenced as available, not actually
+present in this session. Per the brief, none of these may be replaced with unrelated stock or
+generic AI imagery if/when building proceeds — the correct action is to request the actual files,
+which this report does.
 
 This blocks all of Phase 2 (Temple Gateway) and any later chapter that needs cinematic imagery.
-Phase 1 does not require any image asset and is unaffected.
+Phase 1 does not require any image asset and is unaffected — it already shipped and passed its
+quality gate.
+
+**Action needed:** please attach the actual binary files — at minimum
+`hero-sanctuary-level1-source.png` (and, if you want Phase 2 layout/motion validation on the
+larger derivative, `hero-sanctuary-level1-3840x2160.jpg`) — plus the UI reference image and
+production board if you'd like them cross-checked before Phase 2 begins.
 
 ## 2. Hero Asset Levels (build order — do not skip ahead)
 

@@ -83,15 +83,26 @@ from this fixed scale — never an arbitrary one-off value.
 
 ## 4. Radius, Shadow, Glass
 
+Corrected against `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` §62 — the official brief specifies a
+larger, more deliberate radius system than Phase 1 shipped with (see §10 gap note below):
+
 ```css
 :root {
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  --radius-button: 16px;   /* or 999px for a pill CTA — brief allows either per §62 */
+  --radius-button-pill: 999px;
+  --radius-input: 16px;    /* 14–18px range */
+  --radius-card: 24px;     /* 20–28px range */
+  --radius-environment: 32px; /* 28–36px range, large cinematic containers */
   --shadow-elevated: 0 8px 24px rgba(0,0,0,0.35);
   --shadow-focus: 0 0 0 2px var(--bg-primary-1), 0 0 0 4px var(--gold-primary);
 }
 ```
+
+**Known Phase 1 gap (flagged during this reconciliation, not yet fixed):** `Button.tsx` and
+`Container.tsx` currently use a generic `rounded-md` (8px) Tailwind utility predating this
+corrected scale. This needs a small follow-up edit — swap to `--radius-button`/`--radius-card` —
+before Phase 1 is considered visually final. Not fixed in this Phase 0 pass since it's an
+application-code change and this pass is docs-only.
 
 Glassmorphism is restrained and purposeful: only the navigation bar (post-scroll), Temple Mode's
 ritual dock, and modal/menu surfaces use `--glass-surface` + `--glass-blur`. It is never a default
@@ -138,7 +149,7 @@ Summary:
 - **Icons/ritual objects:** never Unicode/emoji; purpose-built SVG or image assets living under
   `public/assets/`, sized and colored via tokens.
 
-## 8. Reject List (design-level, mirrors V4 §26)
+## 8. Reject List (design-level, mirrors `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` §59)
 
 Muddy brown overlays · bright yellow buttons · gold covering large surface areas · purple SaaS
 gradients · neon · generic glassmorphism as a default card style · stock yoga/wellness imagery ·

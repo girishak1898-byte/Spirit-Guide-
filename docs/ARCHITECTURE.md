@@ -1,21 +1,29 @@
 # ARCHITECTURE.md — Spirit Guide V5
 
-Companion to `SPIRIT-GUIDE-V4.md` (product source of truth), `DESIGN-SYSTEM.md`,
-`MOTION-SPEC.md`, `ASSET-PLAN.md`, `IMPLEMENTATION-PLAN.md`. This document covers technology
-choices, directory structure, component boundaries, state domains, and the storage abstraction.
+Companion to `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` and `02_V5_MASTER_BUILD_DIRECTIVE.md` (product
+source of truth — supplied by the official Claude handoff pack, superseding the earlier
+chat-reconstructed `SPIRIT-GUIDE-V4.md`), `DESIGN-SYSTEM.md`, `MOTION-SPEC.md`, `ASSET-PLAN.md`,
+`IMPLEMENTATION-PLAN.md`. This document covers technology choices, directory structure, component
+boundaries, state domains, and the storage abstraction.
 
-## 1. Current Repository State
+## 1. Current Repository State (updated — this is a re-run of Phase 0, not a fresh start)
 
-As of Phase 0, the repository contains **no application code** — no `package.json`, no framework
-scaffold, no source files, no assets. This is a greenfield build. There is nothing to "retain" —
-Phase 1 creates the foundation from scratch.
+This is the second Phase 0 pass. The first ran against a chat-reconstructed version of the brief
+before any official handoff pack existed, and Phase 1 (design tokens, typography, navigation,
+motion primitives) was already implemented and gated (typecheck/lint/tests/build/responsive/
+keyboard/reduced-motion all passing) on that basis. This official pack (`CLAUDE.md`,
+`00_READ_ME_FIRST.md`, `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md`, `02_V5_MASTER_BUILD_DIRECTIVE.md`,
+`ASSET_STATUS.json`) has now been copied into the repo at the paths it expects. Cross-checking it
+against the existing Phase 1 code found one real gap (radius tokens — see §10) and no other
+rework. `public/assets/hero/` exists but is empty — the hero asset `ASSET_STATUS.json` claims is
+supplied was not actually included in this upload (see `ASSET-PLAN.md` §1).
 
 ## 2. Technology Stack
 
 | Concern | Choice | Why |
 |---|---|---|
 | Framework | Next.js (App Router) + React + TypeScript | Required by brief; supports Image optimization, routing per chapter, code splitting, RSC for static content |
-| Scroll choreography | GSAP + ScrollTrigger | Required by brief for pinning/scrubbing/masking |
+| Scroll choreography | GSAP + ScrollTrigger | Required by `02_V5_MASTER_BUILD_DIRECTIVE.md`. Note: the official V4 brief's own §42 tech section only lists "Framer Motion and CSS" for animation — the V5 Build Directive explicitly upgrades this by adding GSAP as the scroll-choreography owner, which is what's implemented; this is a deliberate V5 upgrade over V4, not a contradiction to resolve. |
 | Component-level motion | Framer Motion (`motion`) | Menu, modal, selected-state, presence transitions only |
 | Styling | CSS custom properties (design tokens) + Tailwind CSS utility layer | Tokens give us the strict palette/spacing discipline the brief demands; Tailwind speeds up layout without inventing ad hoc values |
 | Cross-cutting state | React Context, component-local `useState` | Sufficient for Phase 1–7 scope |
@@ -150,3 +158,50 @@ Phase 1 creates: `styles/` tokens, `app/layout.tsx` + `app/page.tsx` shell, `com
 mobile), `components/motion/` primitives (empty-scene-safe, no hero content yet), and the
 `lib/motion` matchMedia/easing helpers. It does **not** touch `components/gateway/` or any hero
 imagery — that's Phase 2, gated on real asset delivery per `ASSET-PLAN.md`.
+
+## 9. Deferred Product Surfaces (from the official V4 brief, §44–53)
+
+The supplied `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` describes several surfaces beyond the front-end
+prototype scope of Phases 1–10 (`IMPLEMENTATION-PLAN.md`). Recording them here so they aren't lost,
+without designing them prematurely:
+
+- **CMS + admin dashboard** (§45–46): separate, private admin UI (Dashboard, Meditations, Wisdom,
+  Audio, Users, Supporters, Content, Analytics) for Owner/Editor/Content Manager roles. Entirely
+  out of scope until Phase 11+ (backend) is approved — not a route inside the public sanctuary app.
+- **Meditation content model** (§47): title, slug, description, duration, category, difficulty,
+  audio file, narrator, background sound, transcript, image, benefits, tags, published status.
+  This is the eventual shape of the `meditations` table in `ARCHITECTURE.md`/backend scope; the
+  Phase 5 front-end only needs duration/category/pattern (see §5 State Domains) since real audio
+  content doesn't exist yet.
+- **Audio system** (§48): full guided-audio player (play/pause/seek/volume/elapsed/remaining,
+  narrator, background ambience, guided/silent toggle) — beyond Phase 5's ambient Sound Sanctuary
+  loops. Deferred until real narrated audio content exists.
+- **Search** (§49): title/topic/duration/mood search with duration-bucket filters, for Meditation
+  and Wisdom libraries once they have enough real content to search.
+- **Membership concept** (§30): "Sanctuary Member" tier (full library, cross-device journal sync,
+  premium soundscapes, offline audio, live events). Strictly later than Phase 10 (Support the
+  Sanctuary in Phase 8 is one-time offerings only, no subscription UI, no fake payment flows).
+- **PWA capability** (§53): Add to Home Screen, offline shell, push reminders. Brief itself says
+  "I would not put this ahead of core quality" — treat as post-launch.
+- **Cursor effects** (§34): an extremely subtle champagne-ring pointer enhancement over immersive
+  areas only (never over buttons, which keep the standard pointer). Candidate for Temple Mode
+  polish in Phase 4, not Phase 1 — noted here so it isn't forgotten, not scheduled yet.
+
+## 10. Reconciliation with Phase 1 (already implemented)
+
+Phase 1 (tokens, typography, navigation, motion primitives) was implemented and gated (typecheck/
+lint/tests/build/responsive/keyboard/reduced-motion, all passing) before this official handoff
+pack arrived, using a chat-reconstructed version of the V4 brief. Cross-checking that
+implementation against the now-supplied `01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md` and
+`02_V5_MASTER_BUILD_DIRECTIVE.md`:
+
+- Colors, typography scale, spacing scale, motion-ownership rules, and the 7-chapter grouping all
+  match exactly — the official brief confirms rather than contradicts what shipped.
+- Nav items (Temple/Meditate/Wisdom/Rituals/Journal/My Sanctuary + Enter Temple CTA), mobile
+  full-height panel behavior, and the scroll-driven glass nav all match §5 of the official brief.
+- **One real gap found:** the official brief's §62 radius system (buttons 999px pill or 14–18px,
+  cards 20–28px, large environments 28–36px, inputs 14–18px) is larger and more deliberate than
+  the generic 4/8/16px scale Phase 1 shipped with. `Button.tsx` and `Container.tsx` use an 8px
+  Tailwind default that predates this. Corrected token values now live in `DESIGN-SYSTEM.md` §4;
+  applying them to the two components is a small, contained fast-follow, not a rebuild.
+- No other rework identified — colors, spacing, motion, and nav all still match.
