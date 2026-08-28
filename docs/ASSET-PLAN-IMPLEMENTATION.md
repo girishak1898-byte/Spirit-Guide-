@@ -222,3 +222,10 @@ exists yet (docs/05_ASSET_PLAN.md §C lists these as future section scenes). `Da
 `LotusGardenSection`, and `JournalSection` all use the same restrained CSS/midnight-token
 treatment already established for Temple Mode and Meditation Hall. No audio requirement exists in
 this chapter's source-of-truth, so none was added.
+
+## 10. Phase 7 asset gap (logged, non-blocking)
+
+No dedicated My Sanctuary room or Support scene artwork exists yet (docs/05_ASSET_PLAN.md §C).
+Both use the same restrained CSS/midnight-token treatment as every prior deferred scene. The
+Closing scene reuses the real Phase 2 hero artwork (dimmed), same precedent as the Temple
+Experience preview — not a new asset, no fabrication.

@@ -9,11 +9,12 @@ import { DailyWisdomSection } from "@/components/wisdom/DailyWisdomSection";
 import { LotusGardenSection } from "@/components/lotus/LotusGardenSection";
 import { IntentionSanctuarySection } from "@/components/intention/IntentionSanctuarySection";
 import { JournalSection } from "@/components/journal/JournalSection";
+import { MySanctuarySection } from "@/components/sanctuary/MySanctuarySection";
+import { SupportSection } from "@/components/support/SupportSection";
+import { ClosingSection } from "@/components/closing/ClosingSection";
+import { Footer } from "@/components/navigation/Footer";
 
-const STUB_CHAPTERS = [
-  { id: "rituals", label: "Rituals" },
-  { id: "sanctuary", label: "My Sanctuary" },
-];
+const STUB_CHAPTERS = [{ id: "rituals", label: "Rituals" }];
 
 /**
  * Phase 2's Temple Gateway (docs/MOTION-SPEC.md §6) is followed by Phase 3's
@@ -61,7 +62,13 @@ export default function HomePage() {
             </Container>
           </section>
         ))}
+
+        <MySanctuarySection />
+        <SupportSection />
+        <ClosingSection />
       </main>
+
+      <Footer />
     </>
   );
 }
