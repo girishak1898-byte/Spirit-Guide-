@@ -58,6 +58,23 @@ function OverlayContent({ activeState, onClose, onSelectRitual, heroAvailable }:
         <span aria-hidden="true" className="text-xl leading-none">×</span>
       </button>
 
+      {/* Mobile-only scrim behind the state text — narrow viewports have no
+          room to keep this text clear of the Buddha the way the sm:left-16
+          column does at wider sizes, so it needs a real backdrop (same
+          intent as GatewayCopy's mobile bottom scrim) rather than sitting
+          bare over the artwork. Measured against the actual rendered text
+          (390px viewport: text spans ~112-294px from the bottom, dock sits
+          at 0-78px) so opacity is already >=85% across that whole band, not
+          just faded in from a generic bottom gradient that turned out to
+          still be near-transparent at the text's actual position. Explicit
+          stops rather than Tailwind's via-* modifier, which wasn't emitting
+          a middle stop at all here (compare against GatewayCopy: 2-color
+          from/to only, same gap — worth a fix there too if it recurs). */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 z-content h-[420px] bg-[linear-gradient(to_top,rgb(5,9,13)_0%,rgba(5,9,13,0.85)_75%,transparent_100%)] sm:hidden"
+      />
+
       <div className="absolute inset-x-0 bottom-28 left-0 z-content px-6 sm:bottom-32 sm:left-16 sm:max-w-md">
         <TempleStateText stateId={activeState} />
       </div>

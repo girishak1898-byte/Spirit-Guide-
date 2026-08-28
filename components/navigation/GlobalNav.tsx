@@ -41,13 +41,13 @@ export function GlobalNav() {
           : "border-b border-transparent bg-transparent",
       )}
     >
-      <Container as="nav" aria-label="Primary" className="flex h-16 items-center justify-between">
-        <a href="#top" className="flex items-center gap-2 text-ink-primary">
+      <Container as="nav" aria-label="Primary" className="flex h-16 items-center justify-between gap-4">
+        <a href="#top" className="flex shrink-0 items-center gap-2 text-ink-primary">
           <SpiritGuideMark className="text-gold-primary" />
           <span className="font-serif text-ui-label tracking-[0.08em]">SPIRIT GUIDE</span>
         </a>
 
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="hidden items-center gap-4 lg:flex xl:gap-8">
           {NAV_ITEMS.map((item) =>
             NAV_ACTIONS[item.href] ? (
               <li key={item.href}>
