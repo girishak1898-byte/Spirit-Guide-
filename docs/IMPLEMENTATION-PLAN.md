@@ -96,6 +96,14 @@ reload persistence verified for journal/intention, attribution rules verified in
 invented Buddha quotes — copy pulled from `08_CONTENT_COPY_DECK.md`), character-limit enforcement
 on Intention (180 chars).
 
+**Added requirement (user request, logged ahead of Phase 6 rather than built out of order):**
+Private Journal includes an Obsidian-style knowledge-graph view — entries/intentions as nodes,
+edges for links between them (shared tags, explicit cross-references, or similar — exact linking
+model to be decided at Phase 6 design time). Must follow the same Midnight Sanctuary visual
+language (no generic force-graph default styling) and the same motion-ownership rules (Motion/CSS
+for node interactions, not GSAP). Local-only per `10_ARCHITECTURE_CONSTRAINTS.md` §Persistence
+until backend approval, same as the rest of Journal/Intention.
+
 ## Phase 7 — Belong/Return
 
 Scope: My Sanctuary (logged-out + local-preview states, no real auth), Support presentation (no
