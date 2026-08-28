@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useRef } from "react";
 import { ScrollScene } from "@/components/motion/ScrollScene";
+import { useTempleMode } from "@/components/temple/TempleModeProvider";
 import type { GatewayRefs } from "@/lib/motion/gatewayRefs";
 import { GatewayArtwork } from "./GatewayArtwork";
 import { GatewayCopy } from "./GatewayCopy";
@@ -54,12 +55,10 @@ export function TempleGatewayScene({ media }: { media: HeroMediaStatus }) {
 
   useGatewayTimeline(refs);
 
+  const { openTemple } = useTempleMode();
   const onEnterTemple = useCallback(() => {
-    const el = outerRef.current;
-    if (!el) return;
-    const targetY = el.offsetTop + el.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: targetY, behavior: "smooth" });
-  }, []);
+    openTemple();
+  }, [openTemple]);
 
   const onBeginMeditation = useCallback(() => {
     document.getElementById("meditate")?.scrollIntoView({ behavior: "smooth" });

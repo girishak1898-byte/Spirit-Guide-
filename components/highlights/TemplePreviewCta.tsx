@@ -1,14 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { useTempleMode } from "@/components/temple/TempleModeProvider";
 
-/** Preview-only: scrolls to the existing Temple stub section. Does not open Temple Mode (Phase 4). */
+/** Preview CTA: opens the real Temple Mode overlay (Phase 4) at its default state. */
 export function TemplePreviewCta() {
+  const { openTemple } = useTempleMode();
   return (
-    <Button
-      variant="primary"
-      onClick={() => document.getElementById("temple")?.scrollIntoView({ behavior: "smooth" })}
-    >
+    <Button variant="primary" onClick={() => openTemple()}>
       Enter Temple Mode
     </Button>
   );

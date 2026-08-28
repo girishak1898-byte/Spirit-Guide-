@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { HeroMediaStatus } from "@/lib/content/heroMedia";
 import { HERO_FOCAL_ORIGIN } from "@/lib/content/heroMediaConstants";
+import { useTempleMode } from "@/components/temple/TempleModeProvider";
 import { GatewayCopy } from "./GatewayCopy";
 import { GATEWAY_CONTENT } from "./gatewayContent";
 
@@ -50,14 +51,14 @@ function StaticArtwork({ media }: { media: HeroMediaStatus }) {
  * statement, in normal document flow.
  */
 export function TempleGatewayStatic({ media }: { media: HeroMediaStatus }) {
+  const { openTemple } = useTempleMode();
+
   return (
     <>
       <section className="relative h-[100svh] w-full overflow-hidden">
         <StaticArtwork media={media} />
         <GatewayCopy
-          onEnterTemple={() => {
-            document.getElementById("temple-mode-statement")?.scrollIntoView({ behavior: "auto" });
-          }}
+          onEnterTemple={() => openTemple()}
           onBeginMeditation={() => {
             document.getElementById("meditate")?.scrollIntoView({ behavior: "auto" });
           }}

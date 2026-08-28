@@ -191,3 +191,16 @@ for a missing production asset), Phase 3 ships with:
 Replace both with the real assets from §C/§D once produced; no component rewrite required
 (`RitualCard.tsx` and `TemplePreviewSection.tsx` isolate the visual treatment the same way
 `GatewayArtwork.tsx` isolates the hero).
+
+## 7. Phase 4 asset gap (logged, non-blocking)
+
+No approved audio asset exists in the repo (`public/assets/` contains only the Level-1 hero image
+derivatives — no `.mp3`/`.wav`/`.ogg`). Per this phase's required amendment, Temple Mode ships
+without any Sound On/Off control rather than a clickable no-op — a fabricated toggle would imply
+audio exists when it doesn't. `TempleModeOverlay`/`RitualDock` isolate the ritual-state rendering
+the same way `GatewayArtwork.tsx` isolates the hero, so a real `SoundToggle` component and audio
+lifecycle (docs/10_ARCHITECTURE_CONSTRAINTS.md §Audio: never autoplay, explicit interaction
+required, teardown on unmount) can be added later without restructuring Temple Mode.
+
+Ritual dock icons also have no dedicated artwork yet (same §D gap already logged in §6) — Phase 4
+reuses the same restrained CSS-accent, no-unicode treatment as Phase 3's `RitualCard`.

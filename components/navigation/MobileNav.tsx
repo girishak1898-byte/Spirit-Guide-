@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useTempleMode } from "@/components/temple/TempleModeProvider";
 import { NAV_ITEMS, PRIMARY_CTA } from "./navConfig";
 
 interface MobileNavProps {
@@ -15,6 +16,8 @@ interface MobileNavProps {
 const PANEL_CLASS = "fixed inset-0 z-mobile-menu flex flex-col bg-bg-primary-1 px-6 py-8";
 
 function PanelContent({ onClose }: { onClose: () => void }) {
+  const { openTemple } = useTempleMode();
+
   return (
     <>
       <div className="flex justify-end">
@@ -32,21 +35,43 @@ function PanelContent({ onClose }: { onClose: () => void }) {
 
       <nav className="mt-12 flex flex-1 flex-col justify-center gap-2">
         <ul className="flex flex-col gap-1">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                onClick={onClose}
-                className="flex min-h-[44px] items-center font-serif text-section-title text-ink-primary transition-colors duration-micro hover:text-gold-primary"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.href === "#temple" ? (
+              <li key={item.href}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    openTemple();
+                  }}
+                  className="flex min-h-[44px] items-center font-serif text-section-title text-ink-primary transition-colors duration-micro hover:text-gold-primary"
+                >
+                  {item.label}
+                </button>
+              </li>
+            ) : (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  onClick={onClose}
+                  className="flex min-h-[44px] items-center font-serif text-section-title text-ink-primary transition-colors duration-micro hover:text-gold-primary"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ),
+          )}
         </ul>
       </nav>
 
-      <Button variant="primary" className="w-full" onClick={onClose}>
+      <Button
+        variant="primary"
+        className="w-full"
+        onClick={() => {
+          onClose();
+          openTemple();
+        }}
+      >
         {PRIMARY_CTA.label}
       </Button>
     </>

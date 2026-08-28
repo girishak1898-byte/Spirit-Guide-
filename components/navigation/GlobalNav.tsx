@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/cn";
 import { useScrolled } from "@/hooks/useScrolled";
+import { useTempleMode } from "@/components/temple/TempleModeProvider";
 import { MobileNav } from "./MobileNav";
 import { NAV_ITEMS, PRIMARY_CTA } from "./navConfig";
 import { SpiritGuideMark } from "./SpiritGuideMark";
@@ -25,6 +26,7 @@ export function GlobalNav() {
   const scrolled = useScrolled();
   const [mobileOpen, setMobileOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const { openTemple } = useTempleMode();
 
   return (
     <header
@@ -43,20 +45,32 @@ export function GlobalNav() {
         </a>
 
         <ul className="hidden items-center gap-8 lg:flex">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                className="text-ui-label text-ink-secondary transition-colors duration-micro hover:text-ink-primary"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.href === "#temple" ? (
+              <li key={item.href}>
+                <button
+                  type="button"
+                  onClick={() => openTemple()}
+                  className="text-ui-label text-ink-secondary transition-colors duration-micro hover:text-ink-primary"
+                >
+                  {item.label}
+                </button>
+              </li>
+            ) : (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="text-ui-label text-ink-secondary transition-colors duration-micro hover:text-ink-primary"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ),
+          )}
         </ul>
 
         <div className="hidden lg:block">
-          <Button variant="primary">{PRIMARY_CTA.label}</Button>
+          <Button variant="primary" onClick={() => openTemple()}>{PRIMARY_CTA.label}</Button>
         </div>
 
         <button

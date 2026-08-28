@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "@/styles/globals.css";
+import { TempleModeProvider } from "@/components/temple/TempleModeProvider";
+import { getHeroMediaStatus } from "@/lib/content/heroMedia";
 
 export const metadata: Metadata = {
   title: "Spirit Guide — Midnight Sanctuary",
@@ -9,9 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const { available } = getHeroMediaStatus();
+
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <TempleModeProvider heroAvailable={available}>{children}</TempleModeProvider>
+      </body>
     </html>
   );
 }
