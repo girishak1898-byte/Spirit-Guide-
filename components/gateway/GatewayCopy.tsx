@@ -75,9 +75,15 @@ export function GatewayCopy({
         </div>
       </div>
 
+      {/* Positioned below the statue rather than at top-1/3: the real hero
+          artwork's Buddha occupies roughly x:60-94%, y:15-72% (see
+          HERO_FOCAL_ORIGIN in lib/content/heroMediaConstants.ts), so a
+          right-aligned panel anywhere in that vertical band sits across the
+          shoulder/mandala — violating CLAUDE.md's "Buddha remains visually
+          unobstructed" non-negotiable. Below y:72% is clear water/candles. */}
       <div
         ref={spiritualNoteRef}
-        className="absolute right-8 top-1/3 z-content hidden max-w-xs rounded-card border border-border-subtle bg-[var(--glass-surface)] p-4 text-ui-label italic text-ink-secondary backdrop-blur-[var(--glass-blur)] lg:block"
+        className="absolute bottom-10 right-8 z-content hidden max-w-xs rounded-card border border-border-subtle bg-[var(--glass-surface)] p-4 text-ui-label italic text-ink-secondary backdrop-blur-[var(--glass-blur)] lg:block"
       >
         {GATEWAY_CONTENT.spiritualNote}
       </div>
