@@ -214,3 +214,11 @@ the restrained midnight radial-gradient treatment already used for Temple Mode's
 ships with no Sound Sanctuary control — a clickable no-op would fabricate audio state. Both can be
 added later without restructuring: `MeditationHallOverlay`/`BreathingMandala` isolate the visual
 layer the same way `GatewayArtwork.tsx` isolates the hero.
+
+## 9. Phase 6 asset gap (logged, non-blocking)
+
+No dedicated Daily Wisdom manuscript, Lotus Garden night-scene, or Journal environment artwork
+exists yet (docs/05_ASSET_PLAN.md §C lists these as future section scenes). `DailyWisdomSection`,
+`LotusGardenSection`, and `JournalSection` all use the same restrained CSS/midnight-token
+treatment already established for Temple Mode and Meditation Hall. No audio requirement exists in
+this chapter's source-of-truth, so none was added.

@@ -5,11 +5,13 @@ import { TempleGateway } from "@/components/gateway/TempleGateway";
 import { RitualDiscoverySection } from "@/components/rituals/RitualDiscoverySection";
 import { GuideMeSection } from "@/components/guide/GuideMeSection";
 import { TemplePreviewSection } from "@/components/highlights/TemplePreviewSection";
+import { DailyWisdomSection } from "@/components/wisdom/DailyWisdomSection";
+import { LotusGardenSection } from "@/components/lotus/LotusGardenSection";
+import { IntentionSanctuarySection } from "@/components/intention/IntentionSanctuarySection";
+import { JournalSection } from "@/components/journal/JournalSection";
 
 const STUB_CHAPTERS = [
-  { id: "wisdom", label: "Wisdom" },
   { id: "rituals", label: "Rituals" },
-  { id: "journal", label: "Journal" },
   { id: "sanctuary", label: "My Sanctuary" },
 ];
 
@@ -37,6 +39,10 @@ export default function HomePage() {
         <RitualDiscoverySection />
         <GuideMeSection />
         <TemplePreviewSection />
+        <DailyWisdomSection />
+        <LotusGardenSection />
+        <IntentionSanctuarySection />
+        <JournalSection />
 
         {STUB_CHAPTERS.map((chapter) => (
           <section
