@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { HERO_ALT, HERO_FOCAL_ORIGIN, HERO_HEIGHT, HERO_PUBLIC_PATH, HERO_WIDTH } from "@/lib/content/heroMediaConstants";
 import { TEMPLE_STATES, type TempleStateId } from "@/lib/temple/templeContent";
 import { RitualDock } from "./RitualDock";
@@ -15,51 +16,6 @@ interface TempleModeOverlayProps {
   onClose: () => void;
   onSelectRitual: (state: TempleStateId) => void;
   heroAvailable: boolean;
-}
-
-const FOCUSABLE_SELECTOR = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-
-/** Tab/Shift+Tab containment + Escape + initial focus + body scroll lock while open. */
-function useFocusTrap(open: boolean, containerRef: React.RefObject<HTMLDivElement>, onClose: () => void) {
-  useEffect(() => {
-    if (!open) return;
-
-    const container = containerRef.current;
-    container?.querySelector<HTMLElement>(FOCUSABLE_SELECTOR)?.focus();
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-        return;
-      }
-      if (event.key !== "Tab" || !container) return;
-
-      const focusable = Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
-        (el) => !el.hasAttribute("disabled"),
-      );
-      if (focusable.length === 0) return;
-
-      const first = focusable[0]!;
-      const last = focusable[focusable.length - 1]!;
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [open, containerRef, onClose]);
 }
 
 function OverlayContent({ activeState, onClose, onSelectRitual, heroAvailable }: Omit<TempleModeOverlayProps, "isOpen">) {

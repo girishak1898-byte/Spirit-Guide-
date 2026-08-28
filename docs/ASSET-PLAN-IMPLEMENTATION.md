@@ -204,3 +204,13 @@ required, teardown on unmount) can be added later without restructuring Temple M
 
 Ritual dock icons also have no dedicated artwork yet (same §D gap already logged in §6) — Phase 4
 reuses the same restrained CSS-accent, no-unicode treatment as Phase 3's `RitualCard`.
+
+## 8. Phase 5 asset gap (logged, non-blocking)
+
+No dedicated Meditation Hall background scene exists yet (docs/01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md
+§16's circular platform/mandala-floor/candle-pathway scene is a future asset) and no approved
+audio asset exists (same gap already logged in §7 for Temple Mode). `MeditationHallOverlay` reuses
+the restrained midnight radial-gradient treatment already used for Temple Mode's own fallback, and
+ships with no Sound Sanctuary control — a clickable no-op would fabricate audio state. Both can be
+added later without restructuring: `MeditationHallOverlay`/`BreathingMandala` isolate the visual
+layer the same way `GatewayArtwork.tsx` isolates the hero.

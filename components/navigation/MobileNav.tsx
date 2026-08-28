@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useTempleMode } from "@/components/temple/TempleModeProvider";
+import { useMeditationHall } from "@/components/meditation/MeditationHallProvider";
 import { NAV_ITEMS, PRIMARY_CTA } from "./navConfig";
 
 interface MobileNavProps {
@@ -17,6 +18,8 @@ const PANEL_CLASS = "fixed inset-0 z-mobile-menu flex flex-col bg-bg-primary-1 p
 
 function PanelContent({ onClose }: { onClose: () => void }) {
   const { openTemple } = useTempleMode();
+  const { openMeditation } = useMeditationHall();
+  const NAV_ACTIONS: Record<string, () => void> = { "#temple": () => openTemple(), "#meditate": () => openMeditation() };
 
   return (
     <>
@@ -36,13 +39,13 @@ function PanelContent({ onClose }: { onClose: () => void }) {
       <nav className="mt-12 flex flex-1 flex-col justify-center gap-2">
         <ul className="flex flex-col gap-1">
           {NAV_ITEMS.map((item) =>
-            item.href === "#temple" ? (
+            NAV_ACTIONS[item.href] ? (
               <li key={item.href}>
                 <button
                   type="button"
                   onClick={() => {
                     onClose();
-                    openTemple();
+                    NAV_ACTIONS[item.href]!();
                   }}
                   className="flex min-h-[44px] items-center font-serif text-section-title text-ink-primary transition-colors duration-micro hover:text-gold-primary"
                 >

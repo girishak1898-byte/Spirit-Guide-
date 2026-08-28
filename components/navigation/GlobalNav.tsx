@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/cn";
 import { useScrolled } from "@/hooks/useScrolled";
 import { useTempleMode } from "@/components/temple/TempleModeProvider";
+import { useMeditationHall } from "@/components/meditation/MeditationHallProvider";
 import { MobileNav } from "./MobileNav";
 import { NAV_ITEMS, PRIMARY_CTA } from "./navConfig";
 import { SpiritGuideMark } from "./SpiritGuideMark";
@@ -27,6 +28,8 @@ export function GlobalNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const { openTemple } = useTempleMode();
+  const { openMeditation } = useMeditationHall();
+  const NAV_ACTIONS: Record<string, () => void> = { "#temple": () => openTemple(), "#meditate": () => openMeditation() };
 
   return (
     <header
@@ -46,11 +49,11 @@ export function GlobalNav() {
 
         <ul className="hidden items-center gap-8 lg:flex">
           {NAV_ITEMS.map((item) =>
-            item.href === "#temple" ? (
+            NAV_ACTIONS[item.href] ? (
               <li key={item.href}>
                 <button
                   type="button"
-                  onClick={() => openTemple()}
+                  onClick={NAV_ACTIONS[item.href]}
                   className="text-ui-label text-ink-secondary transition-colors duration-micro hover:text-ink-primary"
                 >
                   {item.label}

@@ -7,7 +7,6 @@ import { GuideMeSection } from "@/components/guide/GuideMeSection";
 import { TemplePreviewSection } from "@/components/highlights/TemplePreviewSection";
 
 const STUB_CHAPTERS = [
-  { id: "meditate", label: "Meditate" },
   { id: "wisdom", label: "Wisdom" },
   { id: "rituals", label: "Rituals" },
   { id: "journal", label: "Journal" },

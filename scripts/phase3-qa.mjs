@@ -144,10 +144,21 @@ for (const bp of breakpoints) {
     setTimeout(() => resolve(value), 300);
   }));
 
-  const handoffLogged = consoleLogs.some((l) => l.includes("meditation handoff prepared"));
-  const ok = readyLabel && handoffLogged && clsAfter < 0.05;
+  // Phase 5: Begin Practice now opens Meditation Hall for real, preselected
+  // to Scattered's recommended duration (3 min) — supersedes the Phase 3
+  // placeholder console-log check.
+  const dialog = page.getByRole("dialog");
+  const meditationOpened = await dialog
+    .waitFor({ state: "visible", timeout: 2000 })
+    .then(() => true)
+    .catch(() => false);
+  const durationPreselected = meditationOpened
+    ? await dialog.getByRole("button", { name: "3 min" }).getAttribute("aria-pressed")
+    : null;
+
+  const ok = readyLabel && meditationOpened && durationPreselected === "true" && clsAfter < 0.05;
   if (!ok) anyFailure = true;
-  console.log(`Guide Me handoff: readyLabel=${readyLabel} handoffLogged=${handoffLogged} clsBeforeSelect=${cls.toFixed(4)} clsAfterSelectAndBegin=${clsAfter.toFixed(4)} => ${ok ? "PASS" : "FAIL"}`);
+  console.log(`Guide Me handoff: readyLabel=${readyLabel} meditationOpened=${meditationOpened} durationPreselected=${durationPreselected} clsBeforeSelect=${cls.toFixed(4)} clsAfterSelectAndBegin=${clsAfter.toFixed(4)} => ${ok ? "PASS" : "FAIL"}`);
 
   await page.close();
 }

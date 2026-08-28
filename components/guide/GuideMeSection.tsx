@@ -3,19 +3,16 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { TextReveal } from "@/components/motion/TextReveal";
+import { useMeditationHall } from "@/components/meditation/MeditationHallProvider";
 import { MOOD_OPTIONS, buildMeditationHandoff, type MoodId } from "@/lib/guide/moodConfig";
 import { MoodButton } from "./MoodButton";
 import { GuidanceResult } from "./GuidanceResult";
 
-/**
- * "What do you need today?" (docs/08_CONTENT_COPY_DECK.md §Guide Me). Begin
- * Practice only prepares the Phase 5 Meditation Hall handoff state — it does
- * not open or simulate a meditation session (docs/06_PHASE_GATES_AND_PROMPTS.md
- * Phase 3 scope).
- */
+/** "What do you need today?" (docs/08_CONTENT_COPY_DECK.md §Guide Me). Begin Practice opens Meditation Hall preselected to the recommended duration. */
 export function GuideMeSection() {
   const [selectedId, setSelectedId] = useState<MoodId | null>(null);
   const [prepared, setPrepared] = useState(false);
+  const { openMeditation } = useMeditationHall();
 
   const selectedMood = MOOD_OPTIONS.find((mood) => mood.id === selectedId) ?? null;
 
@@ -26,11 +23,8 @@ export function GuideMeSection() {
 
   const handleBeginPractice = () => {
     if (!selectedMood) return;
-    const handoff = buildMeditationHandoff(selectedMood);
-    // Phase 5 will read this handoff to pre-configure the Meditation Hall.
-    // No Meditation Hall UI exists yet, so this only records readiness.
-    console.info("[guide-me] meditation handoff prepared", handoff);
     setPrepared(true);
+    openMeditation(buildMeditationHandoff(selectedMood));
   };
 
   return (

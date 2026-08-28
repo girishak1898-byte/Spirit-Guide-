@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useRef } from "react";
 import { ScrollScene } from "@/components/motion/ScrollScene";
 import { useTempleMode } from "@/components/temple/TempleModeProvider";
+import { useMeditationHall } from "@/components/meditation/MeditationHallProvider";
 import type { GatewayRefs } from "@/lib/motion/gatewayRefs";
 import { GatewayArtwork } from "./GatewayArtwork";
 import { GatewayCopy } from "./GatewayCopy";
@@ -60,9 +61,10 @@ export function TempleGatewayScene({ media }: { media: HeroMediaStatus }) {
     openTemple();
   }, [openTemple]);
 
+  const { openMeditation } = useMeditationHall();
   const onBeginMeditation = useCallback(() => {
-    document.getElementById("meditate")?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    openMeditation();
+  }, [openMeditation]);
 
   return (
     <ScrollScene

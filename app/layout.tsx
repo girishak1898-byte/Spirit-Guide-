@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "@/styles/globals.css";
 import { TempleModeProvider } from "@/components/temple/TempleModeProvider";
+import { MeditationHallProvider } from "@/components/meditation/MeditationHallProvider";
 import { getHeroMediaStatus } from "@/lib/content/heroMedia";
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <TempleModeProvider heroAvailable={available}>{children}</TempleModeProvider>
+        <TempleModeProvider heroAvailable={available}>
+          <MeditationHallProvider>{children}</MeditationHallProvider>
+        </TempleModeProvider>
       </body>
     </html>
   );

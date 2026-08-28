@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { HeroMediaStatus } from "@/lib/content/heroMedia";
 import { HERO_FOCAL_ORIGIN } from "@/lib/content/heroMediaConstants";
 import { useTempleMode } from "@/components/temple/TempleModeProvider";
+import { useMeditationHall } from "@/components/meditation/MeditationHallProvider";
 import { GatewayCopy } from "./GatewayCopy";
 import { GATEWAY_CONTENT } from "./gatewayContent";
 
@@ -52,6 +53,7 @@ function StaticArtwork({ media }: { media: HeroMediaStatus }) {
  */
 export function TempleGatewayStatic({ media }: { media: HeroMediaStatus }) {
   const { openTemple } = useTempleMode();
+  const { openMeditation } = useMeditationHall();
 
   return (
     <>
@@ -59,9 +61,7 @@ export function TempleGatewayStatic({ media }: { media: HeroMediaStatus }) {
         <StaticArtwork media={media} />
         <GatewayCopy
           onEnterTemple={() => openTemple()}
-          onBeginMeditation={() => {
-            document.getElementById("meditate")?.scrollIntoView({ behavior: "auto" });
-          }}
+          onBeginMeditation={() => openMeditation()}
         />
       </section>
 
