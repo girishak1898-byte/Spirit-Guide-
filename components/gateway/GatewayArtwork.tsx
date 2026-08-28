@@ -31,6 +31,7 @@ export function GatewayArtwork({ media, focalOrigin, layerRef, vignetteRef, illu
   return (
     <div
       ref={layerRef}
+      data-gateway-artwork
       className="absolute inset-0"
       style={{ transformOrigin: focalOrigin, willChange: "transform" }}
     >
@@ -58,6 +59,7 @@ export function GatewayArtwork({ media, focalOrigin, layerRef, vignetteRef, illu
       {/* Vignette — edges darken as the sequence progresses. */}
       <div
         ref={vignetteRef}
+        data-gateway-vignette
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-0"
         style={{
@@ -69,6 +71,7 @@ export function GatewayArtwork({ media, focalOrigin, layerRef, vignetteRef, illu
       {/* Illumination — central light strengthens through Focus / Leaving the Website. */}
       <div
         ref={illuminationRef}
+        data-gateway-illumination
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-0"
         style={{
