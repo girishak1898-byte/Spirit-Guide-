@@ -2,6 +2,9 @@ import { GlobalNav } from "@/components/navigation/GlobalNav";
 import { Container } from "@/components/ui/Container";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { TempleGateway } from "@/components/gateway/TempleGateway";
+import { RitualDiscoverySection } from "@/components/rituals/RitualDiscoverySection";
+import { GuideMeSection } from "@/components/guide/GuideMeSection";
+import { TemplePreviewSection } from "@/components/highlights/TemplePreviewSection";
 
 const STUB_CHAPTERS = [
   { id: "temple", label: "Temple" },
@@ -13,10 +16,10 @@ const STUB_CHAPTERS = [
 ];
 
 /**
- * Phase 2: the Temple Gateway is the real cinematic entrance
- * (docs/MOTION-SPEC.md §6, docs/04_HERO_MOTION_STORYBOARD.md). Everything
- * below it remains a Phase 1 placeholder stub — later phases build those
- * chapters; nothing here should be mistaken for them.
+ * Phase 2's Temple Gateway (docs/MOTION-SPEC.md §6) is followed by Phase 3's
+ * Discover chapter — ritual discovery, Guide Me, Temple Experience preview
+ * (docs/06_PHASE_GATES_AND_PROMPTS.md's Phase 3). Everything in
+ * STUB_CHAPTERS below that remains an unbuilt placeholder for later phases.
  */
 export default function HomePage() {
   return (
@@ -33,6 +36,9 @@ export default function HomePage() {
 
       <main id="temple-gateway">
         <TempleGateway />
+        <RitualDiscoverySection />
+        <GuideMeSection />
+        <TemplePreviewSection />
 
         {STUB_CHAPTERS.map((chapter) => (
           <section

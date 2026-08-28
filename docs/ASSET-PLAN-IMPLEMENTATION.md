@@ -176,3 +176,18 @@ Before Phase 2 can start, we need one of:
    understood to be replaced before that phase is considered visually final.
 
 This is a decision point, not a blocker for Phase 1 — Phase 1 has no asset dependency.
+
+## 6. Phase 3 asset gap (logged, non-blocking)
+
+Phase 3 (Sanctuary Highlights ritual discovery cards, Temple Experience preview) has no
+dedicated artwork yet: §D's isolated ritual objects (candle, bell, incense, lotus, reflection)
+and §C's Temple Mode 3840×2160 master are both future Level-2/section deliverables, not supplied
+in this handoff. Per `CLAUDE.md`'s scope discipline (never substitute unrelated stock/AI imagery
+for a missing production asset), Phase 3 ships with:
+- Ritual discovery cards: a restrained CSS radial-gradient accent, no object artwork, no unicode icons.
+- Temple Experience preview: the real Phase 2 hero artwork reused as a dimmed background (honors
+  the storyboard's own Handoff-continuity requirement) rather than a new unrelated image.
+
+Replace both with the real assets from §C/§D once produced; no component rewrite required
+(`RitualCard.tsx` and `TemplePreviewSection.tsx` isolate the visual treatment the same way
+`GatewayArtwork.tsx` isolates the hero).
