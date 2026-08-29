@@ -15,7 +15,14 @@ interface GatewayStillnessProps {
  */
 export function GatewayStillness({ templeEyebrowRef, statementRef }: GatewayStillnessProps) {
   return (
-    <div className="pointer-events-none absolute inset-0 z-content flex flex-col items-center justify-center gap-4 px-6 text-center">
+    // Mobile only: true vertical centering here lands squarely on the
+    // Buddha's face/torso once object-cover crops this same hero image to a
+    // portrait frame (violates CLAUDE.md's "Buddha remains visually
+    // unobstructed"). Pinned to the clear water/candle band below the
+    // statue instead — pb-[190px] measured against the actual render so the
+    // block clears both the figure above and the ritual dock (bottom-10)
+    // below. md:+ restores the original centered composition unchanged.
+    <div className="pointer-events-none absolute inset-0 z-content flex flex-col items-center justify-end gap-2 px-6 pb-[190px] text-center md:justify-center md:gap-4 md:pb-0">
       <span
         ref={templeEyebrowRef}
         className="opacity-0 block text-eyebrow uppercase tracking-[0.2em] text-gold-primary"
