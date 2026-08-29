@@ -1,0 +1,14 @@
+{
+  "project": "Spirit Guide V5 — Midnight Sanctuary",
+  "phase_2_level_1_hero": {
+    "status": "supplied",
+    "source": "public/assets/hero/hero-sanctuary-level1-source.png",
+    "source_dimensions": [1672, 941],
+    "dimension_contract_derivative": "public/assets/hero/hero-sanctuary-level1-3840x2160.jpg",
+    "note": "The 3840x2160 derivative is upscaled from the native generated source. Replace with a true high-resolution master before final launch."
+  },
+  "level_2_hero_layers": "deferred_until_phase_2_visual_approval",
+  "section_scene_assets": "generate_per_phase",
+  "ritual_object_assets": "generate_before_temple_mode_phase",
+  "frame_sequence": "optional_flagship_upgrade_after_motion_approval"
+}
