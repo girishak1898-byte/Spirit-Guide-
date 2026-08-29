@@ -23,7 +23,7 @@ export function ClosingSection() {
             aria-hidden="true"
             fill
             sizes="100vw"
-            className="object-cover opacity-30"
+            className="object-cover opacity-45"
             style={{ objectPosition: HERO_FOCAL_ORIGIN }}
           />
         ) : (
@@ -36,7 +36,7 @@ export function ClosingSection() {
             }}
           />
         )}
-        <div aria-hidden="true" className="absolute inset-0 bg-bg-primary-1/50" />
+        <div aria-hidden="true" className="absolute inset-0 bg-bg-primary-1/35" />
 
         <div className="relative z-content mx-auto flex w-full max-w-xl flex-col items-center gap-4 px-5 text-center">
           <h2 className="font-serif text-section-title text-ink-primary">The door stays open.</h2>

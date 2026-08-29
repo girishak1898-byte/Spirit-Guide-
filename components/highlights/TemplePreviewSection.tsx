@@ -30,7 +30,7 @@ export function TemplePreviewSection() {
             aria-hidden="true"
             fill
             sizes="100vw"
-            className="object-cover opacity-40"
+            className="object-cover opacity-55"
             style={{ objectPosition: HERO_FOCAL_ORIGIN }}
           />
         ) : (
@@ -45,7 +45,7 @@ export function TemplePreviewSection() {
         )}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-bg-primary-1 via-bg-primary-1/60 to-bg-primary-1/20"
+          className="absolute inset-0 bg-gradient-to-t from-bg-primary-1 via-bg-primary-1/45 to-bg-primary-1/10"
         />
 
         <div className="relative z-content mx-auto flex w-full max-w-2xl flex-col items-center gap-4 px-5 text-center">
