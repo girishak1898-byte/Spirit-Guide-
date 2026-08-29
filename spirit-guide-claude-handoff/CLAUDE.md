@@ -2,11 +2,28 @@
 
 You are working on **Spirit Guide — Midnight Sanctuary**, a premium digital sanctuary for meditation, ritual, wisdom, reflection, journaling and personal spiritual practice.
 
+## Status
+Phases 1-8 are complete and frozen as of commit `0ff041b`. **Read
+`START_HERE.md` in this same directory before anything below** — it has
+current architecture, QA, performance, and frozen-phase rules, kept short
+on purpose to conserve tokens. Don't re-derive what it already states.
+
 ## Non-negotiable product principle
 The visitor should not feel, “I opened another meditation website.” They should feel: **“I entered somewhere.”**
 
-## Read before coding
-Read these in order:
+## Frozen-phase discipline
+Phases 1-8 are a frozen baseline, not a draft. Only touch that code for a
+proven regression, an accessibility/security/privacy defect, a production
+failure, or an explicitly approved new feature — never for speculative
+polish. See `START_HERE.md` for the full rule and the list of fixes
+already made (don't reintroduce them).
+
+## Read before coding (for phase-0-style planning reading only)
+This list is the original pre-build reading order and still applies when
+planning genuinely new work. For anything touching the existing frozen
+product, `START_HERE.md` + the specific doc the task needs is enough —
+reading all ten below is themselves a token-conservation violation for
+routine work.
 1. `docs/00_READ_ME_FIRST.md`
 2. `docs/01_SPIRIT_GUIDE_V4_MASTER_BRIEF.md`
 3. `docs/02_V5_MASTER_BUILD_DIRECTIVE.md`
