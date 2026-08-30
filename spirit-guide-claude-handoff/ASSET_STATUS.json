@@ -1,0 +1,53 @@
+{
+  "project": "Spirit Guide V5 — Midnight Sanctuary",
+  "freeze_commit": "0ff041b",
+  "runtime_assets_in_use": {
+    "hero_level_1": {
+      "status": "in_use",
+      "path": "public/assets/hero/hero-sanctuary-level1-source.png",
+      "dimensions": [1672, 941],
+      "used_by": ["GatewayArtwork", "TempleGatewayStatic", "TempleModeOverlay", "TemplePreviewSection", "ClosingSection"],
+      "note": "Single source image; next/image generates responsive derivatives from it at request time. Reused (not duplicated) across Temple Preview and Closing per established precedent — no dedicated scene artwork exists for those sections."
+    }
+  },
+  "reference_or_deferred_assets": {
+    "hero_pre_generated_derivatives": {
+      "status": "unused_dead_weight",
+      "paths": [
+        "public/assets/hero/hero-sanctuary-level1-1024.webp",
+        "public/assets/hero/hero-sanctuary-level1-1440.webp",
+        "public/assets/hero/hero-sanctuary-level1-1920.webp",
+        "public/assets/hero/hero-sanctuary-level1-2560.webp",
+        "public/assets/hero/hero-sanctuary-level1-3840x2160.jpg",
+        "public/assets/hero/hero-sanctuary-level1-mobile-fallback-1200x1500.webp"
+      ],
+      "note": "Not referenced anywhere in app code — next/image supersedes the need for pre-generated sizes. Non-blocking cleanup candidate, not a launch blocker.",
+      "dimension_note": "The 3840x2160 derivative is upscaled from the native source, not a true high-res master. Irrelevant while unused."
+    },
+    "level_2_hero_layers": {
+      "status": "deferred",
+      "note": "Separated-depth hero planes for a future visual upgrade. Not started, not required for freeze."
+    },
+    "ritual_object_artwork": {
+      "status": "deferred",
+      "note": "Temple Mode ships with text-only ritual labels (Candle, Bell, Incense, Lotus, Reflection) — no icon/artwork set exists. This is the shipped design, not a placeholder."
+    },
+    "reference_images": {
+      "status": "reference_only_not_runtime",
+      "paths": [
+        "spirit-guide-claude-handoff/public/assets/reference/spirit-guide-reference-ui.png",
+        "spirit-guide-claude-handoff/public/assets/reference/visual-asset-production-board.png"
+      ],
+      "note": "Live inside this handoff package, not public/assets/ — never used by the running app."
+    }
+  },
+  "missing_optional_production_artwork": {
+    "status": "not_a_launch_blocker",
+    "items": ["dedicated section-scene artwork beyond the reused hero", "ritual object artwork"],
+    "rule": "Never fabricate or substitute stock/AI imagery for these — see root CLAUDE.md scope discipline."
+  },
+  "missing_audio_assets": {
+    "status": "not_a_launch_blocker",
+    "note": "No Sound Sanctuary / approved audio assets exist. The shipped product correctly has zero audio (no autoplay, nothing improvised) — this is intended current-state behavior, not a defect."
+  }
+}

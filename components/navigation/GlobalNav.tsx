@@ -47,7 +47,7 @@ export function GlobalNav() {
           <span className="font-serif text-ui-label tracking-[0.08em]">SPIRIT GUIDE</span>
         </a>
 
-        <ul className="hidden items-center gap-4 lg:flex xl:gap-8">
+        <ul className="hidden items-center gap-5 lg:flex xl:gap-8">
           {NAV_ITEMS.map((item) =>
             NAV_ACTIONS[item.href] ? (
               <li key={item.href}>

@@ -8,7 +8,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Temple", href: "#temple" },
   { label: "Meditate", href: "#meditate" },
   { label: "Wisdom", href: "#wisdom" },
-  { label: "Rituals", href: "#rituals" },
+  { label: "Rituals", href: "#sanctuary-highlights" },
   { label: "Journal", href: "#journal" },
   { label: "My Sanctuary", href: "#sanctuary" },
 ];
