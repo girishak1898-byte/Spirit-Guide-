@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { readSessionHistory, recordCompletedSession } from "./localStorageService";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { readSessionHistory, recordCompletedSession, SESSION_RECORDED_EVENT } from "./localStorageService";
 
 describe("session history storage (sg.sessions.v1)", () => {
   afterEach(() => {
@@ -54,5 +54,13 @@ describe("session history storage (sg.sessions.v1)", () => {
   it("recovers safely from a validly-shaped-but-wrong value", () => {
     window.localStorage.setItem("sg.sessions.v1", JSON.stringify({ totalCompleted: "3", records: "nope" }));
     expect(readSessionHistory()).toEqual({ totalCompleted: 0, records: [] });
+  });
+
+  it("dispatches SESSION_RECORDED_EVENT so already-mounted listeners can update without a reload", () => {
+    const handler = vi.fn();
+    window.addEventListener(SESSION_RECORDED_EVENT, handler);
+    recordCompletedSession(3);
+    window.removeEventListener(SESSION_RECORDED_EVENT, handler);
+    expect(handler).toHaveBeenCalledTimes(1);
   });
 });

@@ -175,6 +175,15 @@ export function readSessionHistory(): SessionHistoryV1 {
  * `records`, capped at MAX_SESSION_RECORDS; `totalCompleted` always
  * increments regardless of the cap — never reconstructed or estimated.
  */
+export const SESSION_RECORDED_EVENT = "sg:session-recorded";
+
+/**
+ * Fired after every recorded session so already-mounted components (My
+ * Sanctuary, in particular — it only reads storage in a mount effect) can
+ * pick up the change within the same page load, not just on next reload.
+ * The native `storage` event doesn't cover this: it only fires in *other*
+ * tabs, never the tab that made the write.
+ */
 export function recordCompletedSession(durationMinutes: MeditationDuration): void {
   const current = readSessionHistory();
   const record: SessionRecord = { id: crypto.randomUUID(), durationMinutes, completedAt: new Date().toISOString() };
@@ -183,4 +192,5 @@ export function recordCompletedSession(durationMinutes: MeditationDuration): voi
     records: [record, ...current.records].slice(0, MAX_SESSION_RECORDS),
   };
   safeWriteObject(SESSION_HISTORY_KEY, next);
+  if (isBrowser()) window.dispatchEvent(new Event(SESSION_RECORDED_EVENT));
 }

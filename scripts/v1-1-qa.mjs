@@ -138,6 +138,12 @@ const fastForwardPastDuration = (page, minutes) =>
   await page.keyboard.press("Escape");
   await dialog.waitFor({ state: "hidden", timeout: 2000 });
 
+  // Same page load, no reload — My Sanctuary was already mounted before the
+  // session completed; it must pick up the new data live, not just next visit.
+  await page.locator("#sanctuary").scrollIntoViewIfNeeded();
+  const sameLoadBody = await page.locator("#sanctuary").getByText(/1 session completed/).isVisible();
+  check("My Sanctuary updates within the same page load, no reload required", sameLoadBody);
+
   await page.reload({ waitUntil: "networkidle" });
   const historyAfterReload = await readHistory(page);
   check("Session history persists across reload", historyAfterReload?.totalCompleted === 1);

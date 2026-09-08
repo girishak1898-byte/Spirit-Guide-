@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { recordCompletedSession } from "@/lib/storage/localStorageService";
 import { MySanctuarySection } from "./MySanctuarySection";
@@ -22,5 +22,14 @@ describe("MySanctuarySection — Practice object", () => {
     expect(body.textContent).toContain("2 sessions completed");
     expect(body.textContent).toContain("12 min");
     expect(body.textContent).not.toMatch(/streak|goal|%/i);
+  });
+
+  it("updates within the same page load when a session completes after mount — no reload needed", async () => {
+    render(<MySanctuarySection />);
+    expect(await screen.findByText("No practice recorded yet.")).toBeInTheDocument();
+
+    act(() => recordCompletedSession(3));
+
+    expect(await screen.findByText(/1 session completed/)).toBeInTheDocument();
   });
 });

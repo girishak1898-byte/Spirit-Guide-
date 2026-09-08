@@ -8,6 +8,7 @@ import {
   readIntentions,
   readJournalEntries,
   readSessionHistory,
+  SESSION_RECORDED_EVENT,
   type Intention,
   type JournalEntry,
   type SessionHistoryV1,
@@ -87,6 +88,15 @@ export function MySanctuarySection() {
     setIntentions(readIntentions());
     setSessionHistory(readSessionHistory());
     setHydrated(true);
+  }, []);
+
+  // A session completed in Meditation Hall during this same page load
+  // (no reload) must still show up here — the mount effect above only
+  // ever runs once.
+  useEffect(() => {
+    const onSessionRecorded = () => setSessionHistory(readSessionHistory());
+    window.addEventListener(SESSION_RECORDED_EVENT, onSessionRecorded);
+    return () => window.removeEventListener(SESSION_RECORDED_EVENT, onSessionRecorded);
   }, []);
 
   const objects = buildObjects(entries, intentions, sessionHistory);
