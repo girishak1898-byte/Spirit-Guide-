@@ -53,6 +53,15 @@ canonical `openTemple()` / `closeTemple()` API; mounted once.
 **Storage** — `lib/storage/localStorageService.ts`. SSR-safe, versioned,
 corruption-safe. Components never touch `localStorage` directly.
 
+**Session history** (v1.1) — `sg.sessions.v1`: `{ totalCompleted, records }`.
+`totalCompleted` is an honest running count (never `records.length`, which
+is capped at 50 and self-heals on read if storage holds more). Written
+exactly once per genuine countdown-to-zero completion, from inside
+`useMeditationTimer`'s `tick()` — not a `useEffect` watching `status`, to
+avoid any double-fire risk. `lib/sanctuary/sessionHistory.ts` derives the
+real-activity summary My Sanctuary's Practice object now shows (still
+local-only, no streaks/goals/percentages).
+
 **Journal graph** — `lib/journal/journalGraph.ts`. Real-data-only
 relationships; never fabricates semantic edges.
 

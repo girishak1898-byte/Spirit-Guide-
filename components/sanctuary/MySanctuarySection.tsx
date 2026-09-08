@@ -4,7 +4,15 @@ import { useEffect, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TextReveal } from "@/components/motion/TextReveal";
-import { readIntentions, readJournalEntries, type Intention, type JournalEntry } from "@/lib/storage/localStorageService";
+import {
+  readIntentions,
+  readJournalEntries,
+  readSessionHistory,
+  type Intention,
+  type JournalEntry,
+  type SessionHistoryV1,
+} from "@/lib/storage/localStorageService";
+import { derivePracticeSummary } from "@/lib/sanctuary/sessionHistory";
 
 interface SanctuaryObject {
   id: string;
@@ -17,17 +25,26 @@ function truncate(text: string, max = 60): string {
   return trimmed.length > max ? `${trimmed.slice(0, max - 1)}…` : trimmed;
 }
 
-function buildObjects(entries: JournalEntry[], intentions: Intention[]): SanctuaryObject[] {
+function formatPracticeDate(iso: string): string {
+  return new Date(iso).toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" });
+}
+
+function buildObjects(entries: JournalEntry[], intentions: Intention[], sessionHistory: SessionHistoryV1): SanctuaryObject[] {
   const latestIntention = intentions[intentions.length - 1] ?? null;
   const latestEntry = entries[0] ?? null; // JournalSection prepends, so index 0 is most recent.
+  const practice = derivePracticeSummary(sessionHistory);
 
   return [
     {
       id: "practice",
       title: "Practice",
-      // Phase 5 sessions aren't persisted (no session history exists yet) —
-      // an honest empty state, never a fabricated streak or last-practice date.
-      body: "No practice recorded yet.",
+      // v1.1: real session history now exists (sg.sessions.v1) — an honest
+      // empty state below when none has been recorded, real data above.
+      // No streak, goal, or percentage language — an object, not a KPI tile.
+      body:
+        practice.totalCompleted === 0 || !practice.lastPracticedAt
+          ? "No practice recorded yet."
+          : `${practice.totalCompleted} ${practice.totalCompleted === 1 ? "session" : "sessions"} completed. Last practice: ${formatPracticeDate(practice.lastPracticedAt)}${practice.lastDurationMinutes ? ` (${practice.lastDurationMinutes} min)` : ""}.`,
     },
     {
       id: "intention",
@@ -62,15 +79,17 @@ function buildObjects(entries: JournalEntry[], intentions: Intention[]): Sanctua
 export function MySanctuarySection() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [intentions, setIntentions] = useState<Intention[]>([]);
+  const [sessionHistory, setSessionHistory] = useState<SessionHistoryV1>({ totalCompleted: 0, records: [] });
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     setEntries(readJournalEntries());
     setIntentions(readIntentions());
+    setSessionHistory(readSessionHistory());
     setHydrated(true);
   }, []);
 
-  const objects = buildObjects(entries, intentions);
+  const objects = buildObjects(entries, intentions, sessionHistory);
 
   return (
     <section id="sanctuary" className="border-t border-border-subtle py-24">

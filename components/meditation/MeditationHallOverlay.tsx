@@ -7,6 +7,7 @@ import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { Button } from "@/components/ui/Button";
 import { MEDITATION_CONTENT } from "@/lib/meditation/meditationContent";
 import type { MeditationHandoff } from "@/lib/guide/moodConfig";
+import { recordCompletedSession } from "@/lib/storage/localStorageService";
 import { BreathingMandala } from "./BreathingMandala";
 import { DurationPicker } from "./DurationPicker";
 import { formatTime, useMeditationTimer } from "./useMeditationTimer";
@@ -30,7 +31,7 @@ function OverlayContent({ handoff, onClose }: Omit<MeditationHallOverlayProps, "
   // Applying the handoff's duration in a mount-time effect is what makes a
   // reopen "start clean unless handoff supplies configuration".
   const { status, durationMinutes, remainingSeconds, announcement, selectDuration, start, pause, resume, reset } =
-    useMeditationTimer();
+    useMeditationTimer(recordCompletedSession);
 
   useEffect(() => {
     if (handoff) selectDuration(handoff.recommendedDuration);

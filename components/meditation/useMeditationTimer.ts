@@ -21,8 +21,19 @@ export function formatTime(totalSeconds: number): string {
  * `announcement` is set only on meaningful transitions (start/pause/
  * resume/finish/reset) for aria-live — never per-second, per this phase's
  * required correction.
+ *
+ * `onComplete` fires exactly once per genuine completion, from inside
+ * `tick()`'s natural countdown-reaches-zero branch — a plain synchronous
+ * call, not a React effect watching `status`. An effect keyed on `status`
+ * would look exactly-once but isn't guaranteed to be (StrictMode's dev
+ * double-invoke, a remount landing on an already-"finished" state); this
+ * branch only executes when the interval itself ticks past zero, and
+ * `clearTick()` + nulling `endTimestampRef` immediately after means even a
+ * stray extra tick can't re-enter it. No separate "already fired" guard
+ * needed, and none to reset for the next session — a new `start()` call is
+ * what makes this branch reachable again.
  */
-export function useMeditationTimer() {
+export function useMeditationTimer(onComplete?: (durationMinutes: MeditationDuration) => void) {
   const [status, setStatus] = useState<MeditationStatus>("idle");
   const [durationMinutes, setDurationMinutes] = useState<MeditationDuration | null>(null);
   const [remainingSeconds, setRemainingSeconds] = useState(0);
@@ -30,6 +41,16 @@ export function useMeditationTimer() {
 
   const endTimestampRef = useRef<number | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const durationRef = useRef<MeditationDuration | null>(null);
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    durationRef.current = durationMinutes;
+  }, [durationMinutes]);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const clearTick = () => {
     if (intervalRef.current !== null) {
@@ -47,6 +68,7 @@ export function useMeditationTimer() {
       endTimestampRef.current = null;
       setStatus("finished");
       setAnnouncement("Meditation complete.");
+      if (durationRef.current !== null) onCompleteRef.current?.(durationRef.current);
     }
   }, []);
 
